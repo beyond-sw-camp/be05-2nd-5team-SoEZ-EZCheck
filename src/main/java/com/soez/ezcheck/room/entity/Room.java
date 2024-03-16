@@ -1,6 +1,7 @@
 package com.soez.ezcheck.room.entity;
 
 import com.soez.ezcheck.reservation.entity.Reservation;
+import java.util.List;
 
 import jakarta.persistence.Entity;
 import jakarta.persistence.Id;
@@ -24,5 +25,5 @@ public class Room {
 
     @OneToMany
     @JoinColumn(name="roomId")
-    private Reservation reservation;
+    private List<Reservation> reservation;
 }
