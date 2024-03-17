@@ -6,6 +6,8 @@ import com.soez.ezcheck.room.entity.Room;
 import com.soez.ezcheck.user.entity.User;
 
 import jakarta.persistence.Entity;
+import jakarta.persistence.EnumType;
+import jakarta.persistence.Enumerated;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
@@ -32,7 +34,6 @@ public class Reservation {
 
     private Date        rsvCheckOut;
     
-    private enum        rsvStatus{
-        reserved, checked_in, checkd_out
-    }
+    @Enumerated(EnumType.STRING)
+    private RsvStatus      rsvStatus;
 }

@@ -1,12 +1,9 @@
 package com.soez.ezcheck.room.entity;
 
-import com.soez.ezcheck.reservation.entity.Reservation;
-import java.util.List;
-
 import jakarta.persistence.Entity;
+import jakarta.persistence.EnumType;
+import jakarta.persistence.Enumerated;
 import jakarta.persistence.Id;
-import jakarta.persistence.JoinColumn;
-import jakarta.persistence.OneToMany;
 import lombok.Data;
 
 @Entity
@@ -18,12 +15,14 @@ public class Room {
 
     private String      roomType;
     private Integer     roomPrice;
-    private enum        roomStatus{
-        available, occupied, maintenance
-    }
+
+    @Enumerated(EnumType.STRING)
+    private RoomStatus roomStatus;
+    
     private String      roomPwd;
 
+    /*
     @OneToMany
     @JoinColumn(name="roomId")
-    private List<Reservation> reservation;
+    private List<Reservation> reservation;*/
 }
