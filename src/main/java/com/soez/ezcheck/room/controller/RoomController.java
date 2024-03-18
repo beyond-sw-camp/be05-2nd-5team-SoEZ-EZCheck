@@ -10,8 +10,8 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
-import com.soez.ezcheck.room.dto.RoomSearchRequestDto;
-import com.soez.ezcheck.room.entity.Room;
+import com.soez.ezcheck.room.domain.Room;
+import com.soez.ezcheck.room.domain.RoomSearchRequestDto;
 import com.soez.ezcheck.room.service.RoomService;
 
 import lombok.RequiredArgsConstructor;

@@ -1,4 +1,4 @@
-package com.soez.ezcheck.room.entity;
+package com.soez.ezcheck.room.domain;
 
 import jakarta.persistence.Entity;
 import jakarta.persistence.EnumType;

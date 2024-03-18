@@ -1,9 +1,8 @@
-package com.soez.ezcheck.reservation.entity;
+package com.soez.ezcheck.reservation.domain;
 
 import java.sql.Date;
 
-import com.soez.ezcheck.room.entity.Room;
-import com.soez.ezcheck.user.entity.User;
+import com.soez.ezcheck.user.domain.User;
 
 import jakarta.persistence.Entity;
 import jakarta.persistence.EnumType;
@@ -26,9 +25,7 @@ public class Reservation {
     @JoinColumn(name = "userId")
     private User        user;
 
-    @ManyToOne
-    @JoinColumn(name = "roomId")
-    private Room        room;
+    private String      roomType;
 
     private Date        rsvCheckIn;
 

@@ -1,4 +1,4 @@
-package com.soez.ezcheck.room.dto;
+package com.soez.ezcheck.room.domain;
 
 import java.sql.Date;
 

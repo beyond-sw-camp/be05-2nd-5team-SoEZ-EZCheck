@@ -1,8 +1,8 @@
-package com.soez.ezcheck.user.entity;
+package com.soez.ezcheck.user.domain;
 
 import java.util.List;
 
-import com.soez.ezcheck.reservation.entity.Reservation;
+import com.soez.ezcheck.reservation.domain.Reservation;
 
 import jakarta.persistence.Entity;
 import jakarta.persistence.Id;

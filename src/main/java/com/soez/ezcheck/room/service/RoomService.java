@@ -5,7 +5,7 @@ import java.util.List;
 
 import org.springframework.stereotype.Service;
 
-import com.soez.ezcheck.room.entity.Room;
+import com.soez.ezcheck.room.domain.Room;
 import com.soez.ezcheck.room.repository.RoomRepository;
 
 import lombok.RequiredArgsConstructor;

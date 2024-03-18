@@ -2,7 +2,7 @@ package com.soez.ezcheck.reservation.service;
 
 import org.springframework.stereotype.Service;
 
-import com.soez.ezcheck.reservation.entity.Reservation;
+import com.soez.ezcheck.reservation.domain.Reservation;
 import com.soez.ezcheck.reservation.repository.ReservationRepository;
 
 import lombok.RequiredArgsConstructor;

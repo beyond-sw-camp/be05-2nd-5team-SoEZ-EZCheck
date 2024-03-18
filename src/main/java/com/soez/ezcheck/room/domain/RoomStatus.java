@@ -1,4 +1,4 @@
-package com.soez.ezcheck.room.entity;
+package com.soez.ezcheck.room.domain;
 
 public enum RoomStatus {
     AVAILABLE, OCCUPIED, MAINTENANCE;
