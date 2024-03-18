@@ -19,16 +19,16 @@ public class Room {
     private Integer roomId;
 
     @Column(name = "room_type")
-    private String roomType;
+    private String type;
 
     @Enumerated(EnumType.STRING)
     @Column(name = "room_status")
     private RoomStatus roomStatus;
 
     @Column(name = "room_price")
-    private Integer roomPrice;
+    private Integer price;
 
     @Column(name = "room_pwd")
-    private String roomPwd;
+    private String pwd;
 
 }

@@ -16,18 +16,18 @@ public class Facility {
     private Integer facilityId;
 
     @Column(name = "facility_name")
-    private String facilityName;
+    private String name;
 
     @Column(name = "facility_location")
-    private String facilityLocation;
+    private String location;
 
     @Column(name = "facility_open_hr")
-    private String facilityOpenHr;
+    private String openHr;
 
     @Column(name = "facility_close_hr")
-    private String facilityCloseHr;
+    private String closeHr;
 
     @Column(name = "facility_capacity")
-    private Integer facilityCapacity;
+    private Integer capacity;
 
 }

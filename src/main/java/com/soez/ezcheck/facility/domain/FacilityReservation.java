@@ -15,18 +15,18 @@ import java.sql.Time;
 public class FacilityReservation {
 
     @EmbeddedId
-    private FacilityReservationId id;
+    private FacilityReservationId frId;
 
     @Column(name = "fr_people_no")
-    private Integer frPeopleNo;
+    private Integer peopleNo;
 
     @Column(name = "fr_rsv_date")
-    private Date frRsvDate;
+    private Date rsvDate;
 
     @Column(name = "fr_rsv_time_from")
-    private Time frRsvTimeFrom;
+    private Time timeFrom;
 
     @Column(name = "fr_rsv_time_to")
-    private Time frRsvTimeTo;
+    private Time timeTo;
 
 }
