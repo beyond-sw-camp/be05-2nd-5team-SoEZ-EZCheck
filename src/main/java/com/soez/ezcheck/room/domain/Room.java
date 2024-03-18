@@ -21,8 +21,4 @@ public class Room {
     
     private String      roomPwd;
 
-    /*
-    @OneToMany
-    @JoinColumn(name="roomId")
-    private List<Reservation> reservation;*/
 }

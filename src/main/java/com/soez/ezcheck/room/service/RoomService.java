@@ -15,7 +15,7 @@ import lombok.RequiredArgsConstructor;
 public class RoomService {
     private final RoomRepository roomRepository;
 
-    public List<Room> findRoomByDateAndType(Date checkInDate, Date checkOutDate, String roomType){
-        return roomRepository.findAvailableRoomsByDateAndType(checkInDate, checkOutDate, roomType);
-    }
+    // public List<Room> findRoomByDateAndType(Date checkInDate, Date checkOutDate, String roomType){
+    //     return roomRepository.findAvailableRoomsByDateAndType(checkInDate, checkOutDate, roomType);
+    // }
 }

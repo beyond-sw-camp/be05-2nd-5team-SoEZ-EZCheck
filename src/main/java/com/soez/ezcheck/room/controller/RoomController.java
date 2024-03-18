@@ -22,9 +22,9 @@ import lombok.RequiredArgsConstructor;
 public class RoomController {
     private final   RoomService roomService;
 
-    @GetMapping("/search")
-    public ResponseEntity<List<Room>> searchRoom(@RequestBody RoomSearchRequestDto requestDto){
-        List<Room> rooms = roomService.findRoomByDateAndType(requestDto.getRsvCheckIn(), requestDto.getRsvCheckOut(), requestDto.getRoomType());
-        return ResponseEntity.ok(rooms);
-    }
+    // @GetMapping("/search")
+    // public ResponseEntity<List<Room>> searchRoom(@RequestBody RoomSearchRequestDto requestDto){
+    //     List<Room> rooms = roomService.findRoomByDateAndType(requestDto.getRsvCheckIn(), requestDto.getRsvCheckOut(), requestDto.getRoomType());
+    //     return ResponseEntity.ok(rooms);
+    // }
 }
