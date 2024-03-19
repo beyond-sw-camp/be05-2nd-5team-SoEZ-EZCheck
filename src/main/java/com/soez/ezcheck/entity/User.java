@@ -18,13 +18,13 @@ public class User {
     @Column(name = "u_pwd")
     private String uPwd;
 
-    @Column("u_name")
+    @Column(name = "u_name")
     private String uName;
 
-    @Column("u_email")
+    @Column(name = "u_email")
     private String uEmail;
 
-    @Column("u_phone")
+    @Column(name = "u_phone")
     private String uPhone;
 
 }

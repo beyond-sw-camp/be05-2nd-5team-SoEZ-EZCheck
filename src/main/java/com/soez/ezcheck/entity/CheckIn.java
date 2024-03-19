@@ -15,18 +15,18 @@ public class CheckIn {
     @Column(name = "cin_id")
     private Integer cinId;
 
-    @Column("cin_date")
+    @Column(name = "cin_date")
     private Date cinDate;
 
-    @Column("cin_time")
+    @Column(name = "cin_time")
     private Time cinTime;
 
     @OneToOne
-    @JoinColumn("rv_id")
+    @JoinColumn(name = "rv_id")
     private Reservation reservation;
 
     @OneToOne
-    @JoinColumn("r_id")
+    @JoinColumn(name = "r_id")
     private Room room;
 
 }

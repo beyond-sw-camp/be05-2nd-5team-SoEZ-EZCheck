@@ -21,7 +21,7 @@ public class ServiceRequest {
     private ServiceRequestStatusEnum serviceRequestStatusEnum;
 
     @ManyToOne
-    @JoinColumn("u_id")
+    @JoinColumn(name = "u_id")
     private User user;
 
 }

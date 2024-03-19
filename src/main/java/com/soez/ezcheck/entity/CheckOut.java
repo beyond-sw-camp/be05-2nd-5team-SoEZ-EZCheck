@@ -15,7 +15,7 @@ public class CheckOut {
     @Column(name = "cout_id")
     private Integer coutId;
 
-    @Column("cout_status")
+    @Column(name = "cout_status")
     @Enumerated(EnumType.STRING)
     private CheckOutStatusEnum checkOutStatusEnum;
 
