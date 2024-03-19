@@ -1,0 +1,36 @@
+package com.soez.ezcheck.entity;
+
+import jakarta.persistence.*;
+import lombok.Data;
+
+import java.sql.Date;
+import java.sql.Time;
+
+@Data
+@Entity
+@Table(name = "checkout")
+public class CheckOut {
+
+    @Id
+    @Column(name = "cout_id")
+    private Integer coutId;
+
+    @Column("cout_status")
+    @Enumerated(EnumType.STRING)
+    private CheckOutStatusEnum checkOutStatusEnum;
+
+    @Column(name = "cout_date")
+    private Date coutDate;
+
+    @Column(name = "cout_time")
+    private Time coutTime;
+
+    @ManyToOne
+    @JoinColumn(name = "u_id")
+    private User user;
+
+    @OneToOne
+    @JoinColumn(name = "cin_id")
+    private CheckIn checkIn;
+
+}
