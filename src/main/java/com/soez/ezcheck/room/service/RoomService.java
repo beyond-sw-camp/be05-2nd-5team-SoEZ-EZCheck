@@ -11,7 +11,7 @@ import com.soez.ezcheck.entity.RoomGradeEnum;
 
 @Service
 public interface RoomService {
-    ResponseEntity<List<Room>> findReservableRoomsByDate(Date checkin, Date checkout);
+    //ResponseEntity<List<Object[]>> findReservableRoomsByDate(Date checkin, Date checkout);
 
-    ResponseEntity<List<Room>> findReservableRoomsByDateAndType(Date checkin, Date checkout, RoomGradeEnum type);
+    ResponseEntity<List<Object[]>> findReservableRoomsByDateAndType(Date checkin, Date checkout, RoomGradeEnum type);
 }

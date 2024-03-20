@@ -29,15 +29,17 @@ public class RoomController {
 
     @GetMapping("/availableRooms")
     public ResponseEntity<List<Room>> getMethodName(@RequestBody AvailableRoomsRequestDTO requestParam) {
-        ResponseEntity<List<Room>> responseEntity = null;
+        ResponseEntity<List<Object[]>> responseEntity = null;
         
         if(requestParam.getRoomGradeEnum() == null){
             System.out.println("debug >>>> don't have room grade");
-            responseEntity = roomService.findReservableRoomsByDate(requestParam.getRvDateFrom(), requestParam.getRvDateTo());
+            //responseEntity = roomService.findReservableRoomsByDate(requestParam.getRvDateFrom(), requestParam.getRvDateTo());
         }  else {
             System.out.println("debug >>>> have room grade");
-            responseEntity = roomService.findReservableRoomsByDateAndType(requestParam.getRvDateFrom(), requestParam.getRvDateTo(), requestParam.getRoomGradeEnum());
+            //responseEntity = roomService.findReservableRoomsByDateAndType(requestParam.getRvDateFrom(), requestParam.getRvDateTo(), requestParam.getRoomGradeEnum());
         }
+
+        System.out.println(responseEntity.getBody());
         return null;
     }
     
