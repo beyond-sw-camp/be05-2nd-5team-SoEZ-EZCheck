@@ -10,6 +10,7 @@ public class ServiceRequest {
 
     @Id
     @Column(name = "rq_id")
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Integer rqId;
 
     @Column(name = "rq_type")
@@ -22,6 +23,6 @@ public class ServiceRequest {
 
     @ManyToOne
     @JoinColumn(name = "u_id")
-    private User user;
+    private Users users;
 
 }

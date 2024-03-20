@@ -2,11 +2,11 @@ package com.soez.ezcheck.entity;
 
 import jakarta.persistence.*;
 import lombok.Data;
+import lombok.Getter;
+import lombok.Setter;
 
 import java.sql.Date;
 import java.sql.Time;
-import java.time.LocalDateTime;
-import java.time.LocalTime;
 
 @Data
 @Entity
@@ -14,6 +14,7 @@ import java.time.LocalTime;
 public class FacilityReservation {
 
     @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "fr_id")
     private Integer frId;
 
@@ -32,6 +33,6 @@ public class FacilityReservation {
 
     @ManyToOne
     @JoinColumn(name = "u_id")
-    private User user;
+    private Users users;
 
 }

@@ -13,6 +13,7 @@ public class CheckOut {
 
     @Id
     @Column(name = "cout_id")
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Integer coutId;
 
     @Column(name = "cout_status")
@@ -27,7 +28,7 @@ public class CheckOut {
 
     @ManyToOne
     @JoinColumn(name = "u_id")
-    private User user;
+    private Users users;
 
     @OneToOne
     @JoinColumn(name = "cin_id")
