@@ -61,8 +61,8 @@ public class FacilityServiceImpl {
     @Transactional
     public String makeReservation(FacilityReservationRequestDTO requestDTO) {
         // storing reservation record to the database
-        // Prepare the SQL query string
 
+        // Prepare the SQL query string
         String sql = "INSERT INTO facility_reservation (fr_date, fr_time, fr_people_num, f_id, u_id) " +
                 "VALUES (:frDate, :frTime, :frPeopleNum, :fId, :uId)";
 
