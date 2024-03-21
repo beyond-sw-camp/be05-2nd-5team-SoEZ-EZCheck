@@ -18,12 +18,12 @@ import lombok.RequiredArgsConstructor;
 @RequiredArgsConstructor
 @Service
 public class RoomServiceImpl implements RoomService{
-    private final RoomRepository roomRepository;
+        private final RoomRepository roomRepository;
 
- 
+
     @Override
     public ResponseEntity<List<Object []>> findReservableRoomsByDateAndType(Date checkin, Date checkout, RoomGradeEnum type) {
-        
+
         return null;
     }
     
