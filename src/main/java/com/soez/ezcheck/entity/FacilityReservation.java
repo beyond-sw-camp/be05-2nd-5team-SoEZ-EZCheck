@@ -32,6 +32,6 @@ public class FacilityReservation {
 
     @ManyToOne
     @JoinColumn(name = "u_id")
-    private User user;
+    private Users users;
 
 }

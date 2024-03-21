@@ -22,7 +22,7 @@ public class Reservation {
 
     @ManyToOne
     @JoinColumn(name = "u_id")
-    private User user;
+    private Users users;
 
     @OneToOne
     @JoinColumn(name = "rg_id")

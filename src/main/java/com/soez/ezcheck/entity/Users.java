@@ -9,7 +9,7 @@ import lombok.Data;
 @Data
 @Entity
 @Table(name = "users")
-public class User {
+public class Users {
 
     @Id
     @Column(name = "u_id")
