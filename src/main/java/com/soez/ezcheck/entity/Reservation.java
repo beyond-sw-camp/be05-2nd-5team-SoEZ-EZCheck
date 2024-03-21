@@ -12,6 +12,7 @@ public class Reservation {
 
     @Id
     @Column(name = "rv_id")
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Integer rvId;
 
     @Column(name = "rv_date_from")
@@ -22,7 +23,7 @@ public class Reservation {
 
     @ManyToOne
     @JoinColumn(name = "u_id")
-    private User user;
+    private Users users;
 
     @OneToOne
     @JoinColumn(name = "rg_id")

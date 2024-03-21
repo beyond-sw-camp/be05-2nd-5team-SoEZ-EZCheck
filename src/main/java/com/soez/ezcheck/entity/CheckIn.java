@@ -13,6 +13,7 @@ public class CheckIn {
 
     @Id
     @Column(name = "cin_id")
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Integer cinId;
 
     @Column(name = "cin_date")
