@@ -10,6 +10,7 @@ import java.util.List;
 
 @Repository
 public interface FacilityRepository extends JpaRepository<Facility, Integer> {
+
      @Query("SELECT f FROM Facility f WHERE f.fCapacity >= :peopleToReserve AND f.facilityStatusEnum = :statusOpen")
      List<Facility> findAvailableFacilities(Integer peopleToReserve, FacilityStatusEnum statusOpen);
 

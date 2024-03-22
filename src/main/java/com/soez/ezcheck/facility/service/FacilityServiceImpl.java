@@ -3,9 +3,12 @@ package com.soez.ezcheck.facility.service;
 import com.soez.ezcheck.entity.Facility;
 import com.soez.ezcheck.entity.FacilityReservation;
 import com.soez.ezcheck.entity.FacilityStatusEnum;
+import com.soez.ezcheck.entity.Users;
+import com.soez.ezcheck.facility.domain.FacilityReservationDetailsDTO;
 import com.soez.ezcheck.facility.domain.FacilityReservationRequestDTO;
 import com.soez.ezcheck.facility.repository.FacilityRepository;
 import com.soez.ezcheck.facility.repository.FacilityReservationRepository;
+import com.soez.ezcheck.user.repository.UsersRepository;
 import jakarta.persistence.EntityManager;
 import jakarta.persistence.PersistenceContext;
 import jakarta.persistence.Query;
@@ -17,6 +20,7 @@ import java.sql.Date;
 import java.sql.Time;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.stream.Collectors;
 
 @Service
 @RequiredArgsConstructor
@@ -26,9 +30,12 @@ public class FacilityServiceImpl {
 
     private final FacilityReservationRepository facilityReservationRepository;
 
+    private final UsersRepository usersRepository;
+
     @PersistenceContext
     private EntityManager entityManager;
 
+    @Transactional(readOnly = true)
     public List<Facility> findAvailableFacilities(Integer peopleToReserve) {
         return facilityRepository.findAvailableFacilities(peopleToReserve, FacilityStatusEnum.OPEN);
     }
@@ -47,7 +54,8 @@ public class FacilityServiceImpl {
         return reservableFacilities;
     }
 
-    private int getCurrentReservationCount(Facility facility, Date date, Time time) {
+    @Transactional
+    public int getCurrentReservationCount(Facility facility, Date date, Time time) {
         List<FacilityReservation> reservations = facilityReservationRepository.findByFrDateAndFrTime(date, time);
         int count = 0;
         for (FacilityReservation reservation : reservations) {
@@ -78,6 +86,22 @@ public class FacilityServiceImpl {
         query.executeUpdate();
 
         return requestDTO.getDate().toString() + " " + requestDTO.getTime().toString() + " 에 예약이 완료되었습니다";
+    }
+
+    @Transactional(readOnly = true)
+    public List<FacilityReservationDetailsDTO> getReservationDetails(String uId) {
+        Users users = usersRepository.findById(uId).orElseThrow(()-> new IllegalArgumentException("존재하지 않는 사용자입니다."));
+        List<FacilityReservation> reservations = facilityReservationRepository.findByUsers(users);
+        return reservations.stream().map(this::mapToReservationDetailsDTO).collect(Collectors.toList());
+    }
+
+    public FacilityReservationDetailsDTO mapToReservationDetailsDTO(FacilityReservation facilityReservation) {
+        FacilityReservationDetailsDTO result = new FacilityReservationDetailsDTO();
+        result.setFacilityName(facilityReservation.getFacility().getFName());
+        result.setReservationDate(facilityReservation.getFrDate());
+        result.setReservationTime(facilityReservation.getFrTime());
+        result.setNumberOfPeople(facilityReservation.getFrPeopleNum());
+        return result;
     }
 
 }

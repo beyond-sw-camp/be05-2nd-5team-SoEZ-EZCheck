@@ -1,6 +1,7 @@
 package com.soez.ezcheck.facility.controller;
 
 import com.soez.ezcheck.entity.Facility;
+import com.soez.ezcheck.facility.domain.FacilityReservationDetailsDTO;
 import com.soez.ezcheck.facility.domain.FacilityReservationRequestDTO;
 import com.soez.ezcheck.facility.service.FacilityServiceImpl;
 import lombok.RequiredArgsConstructor;
@@ -42,6 +43,11 @@ public class FacilityController {
     public ResponseEntity<String> makeReservation(@RequestBody FacilityReservationRequestDTO requestDTO) {
         String msg = facilityService.makeReservation(requestDTO);
         return new ResponseEntity<>(msg, HttpStatus.OK);
+    }
+
+    @GetMapping("/user/{uId}")
+    public List<FacilityReservationDetailsDTO> getReservationDetails(@PathVariable("uId") String uId) {
+        return facilityService.getReservationDetails(uId);
     }
 
 }
