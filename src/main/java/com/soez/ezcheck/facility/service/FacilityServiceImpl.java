@@ -99,13 +99,10 @@ public class FacilityServiceImpl {
 	 */
 	@Transactional
 	public String makeReservation(FacilityReservationRequestDTO requestDTO) {
-		// storing reservation record to the database
-
-		// Prepare the SQL query string
+		// 수행할 SQL 구문
 		String sql = "INSERT INTO facility_reservation (fr_date, fr_time, fr_people_num, f_id, u_id) " +
 			"VALUES (:frDate, :frTime, :frPeopleNum, :fId, :uId)";
 
-		// Create the query
 		Query query = entityManager.createNativeQuery(sql);
 		query.setParameter("frDate", requestDTO.getDate());
 		query.setParameter("frTime", requestDTO.getTime());
@@ -113,7 +110,7 @@ public class FacilityServiceImpl {
 		query.setParameter("fId", requestDTO.getFacilityId());
 		query.setParameter("uId", requestDTO.getUserId());
 
-		// Execute the query
+		// 쿼리 실행
 		query.executeUpdate();
 
 		return requestDTO.getDate().toString() + " " + requestDTO.getTime().toString() + " 에 예약이 완료되었습니다";
