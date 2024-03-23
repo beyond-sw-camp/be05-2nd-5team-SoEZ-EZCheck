@@ -14,7 +14,6 @@ import lombok.Data;
 public class ServiceRequestDTO {
     @Enumerated(EnumType.STRING)
     private ServiceRequestTypeEnum serviceRequestTypeEnum;
-    @Enumerated(EnumType.STRING)
-    private ServiceRequestStatusEnum serviceRequestStatusEnum;
+
     private String uId;
 }
