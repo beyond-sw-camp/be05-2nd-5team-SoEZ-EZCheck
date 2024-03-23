@@ -12,6 +12,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.soez.ezcheck.entity.Reservation;
+import com.soez.ezcheck.entity.RoomGrade;
 import com.soez.ezcheck.reservation.domain.ReservationRequestDTO;
 import com.soez.ezcheck.reservation.service.ReservationService;
 
@@ -23,6 +24,16 @@ import lombok.RequiredArgsConstructor;
 public class ReservationController {
 
     private final ReservationService reservationService;
+
+    @GetMapping("/listAvailableGrades")
+    public ResponseEntity<List<RoomGrade>> listAvailableGrades(@RequestBody ReservationRequestDTO requestDTO) {
+        List<RoomGrade> list = reservationService.avalableRoomGrades(requestDTO.getRvDateFrom(), requestDTO.getRvDateTo());
+        if (list.isEmpty()) {
+            return ResponseEntity.status(HttpStatus.NO_CONTENT).body(null);
+        } else {
+            return ResponseEntity.status(HttpStatus.OK).body(list);
+        }
+    }
 
     @PostMapping("/make")
     public void makeReservation(@RequestBody ReservationRequestDTO requestDTO){

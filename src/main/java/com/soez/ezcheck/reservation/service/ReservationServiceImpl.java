@@ -1,7 +1,10 @@
 package com.soez.ezcheck.reservation.service;
 
+import java.sql.Date;
 import java.util.List;
 import java.util.Optional;
+
+import org.springframework.security.access.method.P;
 import org.springframework.stereotype.Service;
 
 import com.soez.ezcheck.entity.Reservation;
@@ -55,6 +58,7 @@ public class ReservationServiceImpl implements ReservationService{
         }
     }
 
+    @Override
     public List<Reservation> findMyReservations(String uId) {
         Optional<Users> userOptional = userRepository.findById(uId);
         if (userOptional.isPresent()) {
@@ -64,6 +68,7 @@ public class ReservationServiceImpl implements ReservationService{
         }
     }
 
+    @Override
     public boolean deleteReservation(Reservation reservation) {
         try {
             reservationRepository.delete(reservation);
@@ -71,6 +76,16 @@ public class ReservationServiceImpl implements ReservationService{
         } catch (Exception e) {
             e.printStackTrace();
             return false;
+        }
+    }
+
+    @Override
+    public List<RoomGrade> avalableRoomGrades(Date checkInDate, Date checkOutDate) {
+        List<RoomGrade> roomGrades = roomGradeRepository.findRoomGradesWithAvailability(checkInDate, checkOutDate);
+        if (roomGrades.isEmpty()) {
+            throw new IllegalArgumentException("No available room grades");
+        }else {
+            return roomGrades;
         }
     }
 
