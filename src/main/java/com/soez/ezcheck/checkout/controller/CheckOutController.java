@@ -7,12 +7,14 @@ import org.springframework.format.annotation.DateTimeFormat;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.soez.ezcheck.checkout.domain.CheckOutDTO;
-import com.soez.ezcheck.checkout.service.CheckOutService;
+import com.soez.ezcheck.checkout.service.CheckOutServiceImpl;
 
 import lombok.RequiredArgsConstructor;
 
@@ -21,7 +23,7 @@ import lombok.RequiredArgsConstructor;
 @RequiredArgsConstructor
 public class CheckOutController {
 
-	private final CheckOutService checkOutService;
+	private final CheckOutServiceImpl checkOutServiceImpl;
 
 	/**
 	 * 조건에 상관없이 모든 체크아웃 요청 내역을 최신순으로 조회
@@ -30,7 +32,7 @@ public class CheckOutController {
 	 */
 	@GetMapping("/all")
 	public ResponseEntity<List<CheckOutDTO>> getAllCheckOutRecords() {
-		List<CheckOutDTO> checkOutRecords = checkOutService.getAllCheckOutRecords();
+		List<CheckOutDTO> checkOutRecords = checkOutServiceImpl.getAllCheckOutRecords();
 		return new ResponseEntity<>(checkOutRecords, HttpStatus.OK);
 	}
 
@@ -43,8 +45,30 @@ public class CheckOutController {
 	@GetMapping("/date")
 	public ResponseEntity<List<CheckOutDTO>> getCheckOutRecordsByDate(
 		@RequestParam("selectedDate") @DateTimeFormat(pattern = "yyyy-MM-dd") Date selectedDate) {
-		List<CheckOutDTO> checkOutRecords = checkOutService.getCheckOutRecordsByDate(selectedDate);
+		List<CheckOutDTO> checkOutRecords = checkOutServiceImpl.getCheckOutRecordsByDate(selectedDate);
 		return new ResponseEntity<>(checkOutRecords, HttpStatus.OK);
+	}
+
+	/**
+	 * @author Jihwan
+	 * @param coutId 승인할 체크아웃 요청 ID
+	 * @return 체크아웃 승인 메시지
+	 */
+	@PutMapping("/approve/{coutId}")
+	public ResponseEntity<String> approveCheckOutRequest(@PathVariable Integer coutId) {
+		checkOutServiceImpl.approveCheckOut(coutId);
+		return new ResponseEntity<>("체크아웃 요청을 승인하였습니다.", HttpStatus.OK);
+	}
+
+	/**
+	 * @author Jihwan
+	 * @param coutId 거절할 체크아웃 요청 ID
+	 * @return 체크아웃 거절 메시지
+	 */
+	@PutMapping("/reject/{coutId}")
+	public ResponseEntity<String> rejectCheckOutRequest(@PathVariable Integer coutId) {
+		checkOutServiceImpl.rejectCheckOut(coutId);
+		return new ResponseEntity<>("체크아웃 요청을 거절하였습니다.", HttpStatus.OK);
 	}
 
 }
