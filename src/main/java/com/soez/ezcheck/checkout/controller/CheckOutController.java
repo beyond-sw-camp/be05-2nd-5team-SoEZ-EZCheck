@@ -28,7 +28,7 @@ public class CheckOutController {
 	 * @author Jihwan
 	 * @return 최신순으로 정렬된 체크아웃 요청들 List<>
 	 */
-	@GetMapping("/listall")
+	@GetMapping("/all")
 	public ResponseEntity<List<CheckOutDTO>> getAllCheckOutRecords() {
 		List<CheckOutDTO> checkOutRecords = checkOutService.getAllCheckOutRecords();
 		return new ResponseEntity<>(checkOutRecords, HttpStatus.OK);
@@ -40,7 +40,7 @@ public class CheckOutController {
 	 * @param selectedDate 조회하려는 날짜
 	 * @return 최신순으로 정렬된 체크아웃 요청들 List<>
 	 */
-	@GetMapping("/list")
+	@GetMapping("/date")
 	public ResponseEntity<List<CheckOutDTO>> getCheckOutRecordsByDate(
 		@RequestParam("selectedDate") @DateTimeFormat(pattern = "yyyy-MM-dd") Date selectedDate) {
 		List<CheckOutDTO> checkOutRecords = checkOutService.getCheckOutRecordsByDate(selectedDate);
