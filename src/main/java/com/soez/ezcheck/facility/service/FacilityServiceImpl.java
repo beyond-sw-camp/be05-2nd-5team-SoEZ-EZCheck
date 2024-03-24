@@ -137,12 +137,12 @@ public class FacilityServiceImpl {
 	 * @return 예약 내역(시설명, 예약 날짜, 예약 시간, 예약 인원수)
 	 */
 	public FacilityReservationDetailsDTO mapToReservationDetailsDTO(FacilityReservation facilityReservation) {
-		FacilityReservationDetailsDTO result = new FacilityReservationDetailsDTO();
-		result.setFacilityName(facilityReservation.getFacility().getFName());
-		result.setReservationDate(facilityReservation.getFrDate());
-		result.setReservationTime(facilityReservation.getFrTime());
-		result.setNumberOfPeople(facilityReservation.getFrPeopleNum());
-		return result;
+		FacilityReservationDetailsDTO dto = new FacilityReservationDetailsDTO();
+		dto.setFacilityName(facilityReservation.getFacility().getFName());
+		dto.setReservationDate(facilityReservation.getFrDate());
+		dto.setReservationTime(facilityReservation.getFrTime());
+		dto.setNumberOfPeople(facilityReservation.getFrPeopleNum());
+		return dto;
 	}
 
 }
