@@ -9,6 +9,7 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.soez.ezcheck.entity.Reservation;
@@ -27,6 +28,7 @@ public class ReservationController {
 
     @GetMapping("/listAvailableGrades")
     public ResponseEntity<List<RoomGrade>> listAvailableGrades(@RequestBody ReservationRequestDTO requestDTO) {
+        System.out.println("RequestDTO: " + requestDTO.toString());
         List<RoomGrade> list = reservationService.avalableRoomGrades(requestDTO.getRvDateFrom(), requestDTO.getRvDateTo());
         if (list.isEmpty()) {
             return ResponseEntity.status(HttpStatus.NO_CONTENT).body(null);
@@ -41,12 +43,12 @@ public class ReservationController {
     }
 
     @GetMapping("/myReservations")
-    public ResponseEntity<String> myReservations() {
-        List<Reservation> list = reservationService.findMyReservations("uId");
+    public ResponseEntity<String> myReservations(@RequestParam("uId") String uId) {
+        List<Reservation> list = reservationService.findMyReservations(uId);
         if (list.isEmpty()) {
             return ResponseEntity.status(HttpStatus.NO_CONTENT).body(null);
         } else {
-            return ResponseEntity.status(HttpStatus.OK).body("My Reservations");
+            return ResponseEntity.status(HttpStatus.OK).body(list.toString());
         }
     }
 
