@@ -78,7 +78,7 @@ public class CheckOutServiceImpl {
 		checkOutRepository.save(checkOut);
 
 		Room room = checkOut.getCheckIn().getRoom();
-		room.setRoomStatusEnum(RoomStatusEnum.AVAILABLE);
+		room.setRoomStatusEnum(RoomStatusEnum.MAINTENANCE);
 		roomRepository.save(room);
 	}
 

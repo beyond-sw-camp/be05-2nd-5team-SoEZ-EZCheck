@@ -62,10 +62,8 @@ public class FacilityServiceImpl {
 		Date date, Time time) {
 		List<Facility> reservableFacilities = new ArrayList<>();
 		for (Facility facility : availableFacilities) {
-			// Check if the facility can accommodate the total number of people
 			int currentReservationCount = getCurrentReservationCount(facility, date, time);
 			if (currentReservationCount + peopleToReserve <= facility.getFCapacity()) {
-				// add to reservable facility list
 				reservableFacilities.add(facility);
 			}
 		}
