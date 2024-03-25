@@ -35,7 +35,7 @@ public class ReservationServiceImpl implements ReservationService{
 
         Reservation reservation = new Reservation();
         
-        Optional<Users> userOptional = userRepository.findById(requestDTO.getUId());
+        Optional<Users> userOptional = userRepository.findById(requestDTO.getuId());
         if (userOptional.isPresent()) {
             reservation.setUsers(userOptional.get());
         } else {

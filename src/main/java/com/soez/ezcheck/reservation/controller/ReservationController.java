@@ -28,7 +28,6 @@ public class ReservationController {
 
     @GetMapping("/listAvailableGrades")
     public ResponseEntity<List<RoomGrade>> listAvailableGrades(@RequestBody ReservationRequestDTO requestDTO) {
-        System.out.println("RequestDTO: " + requestDTO.toString());
         List<RoomGrade> list = reservationService.avalableRoomGrades(requestDTO.getRvDateFrom(), requestDTO.getRvDateTo());
         if (list.isEmpty()) {
             return ResponseEntity.status(HttpStatus.NO_CONTENT).body(null);
@@ -38,15 +37,20 @@ public class ReservationController {
     }
 
     @PostMapping("/make")
-    public void makeReservation(@RequestBody ReservationRequestDTO requestDTO){
-        reservationService.addReservation(requestDTO);
+    public ResponseEntity<Boolean> makeReservation(@RequestBody ReservationRequestDTO requestDTO){
+        Boolean response = reservationService.addReservation(requestDTO);
+        if (response) {
+            return ResponseEntity.ok(response);
+        } else {
+            return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body(response);
+        }
     }
 
     @GetMapping("/myReservations")
-    public ResponseEntity<String> myReservations(@RequestParam("uId") String uId) {
-        List<Reservation> list = reservationService.findMyReservations(uId);
+    public ResponseEntity<String> myReservations(@RequestBody ReservationRequestDTO requestDTO) {
+        List<Reservation> list = reservationService.findMyReservations(requestDTO.getuId());
         if (list.isEmpty()) {
-            return ResponseEntity.status(HttpStatus.NO_CONTENT).body(null);
+            return ResponseEntity.noContent().build();
         } else {
             return ResponseEntity.status(HttpStatus.OK).body(list.toString());
         }

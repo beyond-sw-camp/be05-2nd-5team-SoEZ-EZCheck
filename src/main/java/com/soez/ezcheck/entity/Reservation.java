@@ -25,7 +25,7 @@ public class Reservation {
     @JoinColumn(name = "u_id")
     private Users users;
 
-    @OneToOne
+    @ManyToOne
     @JoinColumn(name = "rg_id")
     private RoomGrade roomGrade;
 
