@@ -1,7 +1,10 @@
 package com.soez.ezcheck.reservation.service;
 
+import java.sql.Date;
 import java.util.List;
 import java.util.Optional;
+
+import org.springframework.security.access.method.P;
 import org.springframework.stereotype.Service;
 
 import com.soez.ezcheck.entity.Reservation;
@@ -28,32 +31,44 @@ public class ReservationServiceImpl implements ReservationService{
     }
 
     @Override
-    public void addReservation(ReservationRequestDTO requestDTO) {
+    public boolean addReservation(ReservationRequestDTO requestDTO) {
 
         Reservation reservation = new Reservation();
         
-        // 사용자 정보 가져오기
         Optional<Users> userOptional = userRepository.findById(requestDTO.getUId());
         if (userOptional.isPresent()) {
             reservation.setUsers(userOptional.get());
         } else {
-            // 사용자를 찾을 수 없는 경우 예외 처리
             throw new IllegalArgumentException("User not found");
         }
-        // 방 등급 정보 가져오기
         Optional<RoomGrade> roomGradeOptional = roomGradeRepository.findById(requestDTO.getRgId());
         if (roomGradeOptional.isPresent()) {
             reservation.setRoomGrade(roomGradeOptional.get());
         } else {
-            // 방 등급을 찾을 수 없는 경우 예외 처리
             throw new IllegalArgumentException("RoomGrade not found");
         }
-        // 날짜 설정
         reservation.setRvDateFrom(requestDTO.getRvDateFrom());
         reservation.setRvDateTo(requestDTO.getRvDateTo());
-        reservationRepository.save(reservation);
+        try {
+            reservationRepository.save(reservation);
+            return true;
+        } catch (Exception e) {
+            e.printStackTrace();
+            return false;
+        }
     }
 
+    @Override
+    public List<Reservation> findMyReservations(String uId) {
+        Optional<Users> userOptional = userRepository.findById(uId);
+        if (userOptional.isPresent()) {
+            return reservationRepository.findByUsers(userOptional.get());
+        } else {
+            throw new IllegalArgumentException("User not found");
+        }
+    }
+
+    @Override
     public boolean deleteReservation(Reservation reservation) {
         try {
             reservationRepository.delete(reservation);
@@ -61,6 +76,16 @@ public class ReservationServiceImpl implements ReservationService{
         } catch (Exception e) {
             e.printStackTrace();
             return false;
+        }
+    }
+
+    @Override
+    public List<RoomGrade> avalableRoomGrades(Date checkInDate, Date checkOutDate) {
+        List<RoomGrade> roomGrades = roomGradeRepository.findRoomGradesWithAvailability(checkInDate, checkOutDate);
+        if (roomGrades.isEmpty()) {
+            throw new IllegalArgumentException("No available room grades");
+        }else {
+            return roomGrades;
         }
     }
 

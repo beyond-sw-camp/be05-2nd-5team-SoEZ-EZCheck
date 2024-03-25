@@ -17,6 +17,9 @@ public class ServiceRequestDTO {
 
     public ServiceRequestDTO() {
     }
+    public ServiceRequestDTO(String uId) {
+        this.uId = uId;
+    }
     public ServiceRequestDTO (String uId, ServiceRequestTypeEnum serviceRequestTypeEnum, ServiceRequestStatusEnum serviceRequestStatusEnum){
         this.uId = uId;
         this.serviceRequestStatusEnum = serviceRequestStatusEnum;

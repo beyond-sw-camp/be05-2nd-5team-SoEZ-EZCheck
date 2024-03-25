@@ -28,8 +28,8 @@ public class ServiceRequestController {
     private final   ServiceRequestService serviceRequestService;
 
     @GetMapping("/myServiceRequests")
-    public ResponseEntity<List<ServiceRequest>> myRequests(@RequestBody ServiceMakeRequestDTO requestDTO){
-        List<ServiceRequest> list = serviceRequestService.findMyRequests(requestDTO.getuId());
+    public ResponseEntity<List<ServiceRequest>> myRequests(@RequestBody ServiceRequestDTO requestDTO){
+        List<ServiceRequest> list = serviceRequestService.findMyRequests(requestDTO);
         if (list.isEmpty()){
             return ResponseEntity.noContent().build();
         } else {
@@ -39,7 +39,6 @@ public class ServiceRequestController {
 
     @PostMapping("/make")
     public ResponseEntity<Boolean> makeServiceRequest(@RequestBody ServiceRequestDTO requestDTO){
-        System.out.println("Request DTO: " + requestDTO.getuId());
         Boolean response = serviceRequestService.addServiceRequest(requestDTO);
         return ResponseEntity.ok(response);
     }

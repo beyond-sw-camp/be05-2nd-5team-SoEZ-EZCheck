@@ -8,8 +8,9 @@ import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.query.Param;
 
 import com.soez.ezcheck.entity.Room;
+import com.soez.ezcheck.entity.RoomGrade;
+import com.soez.ezcheck.entity.RoomGradeEnum;
 
 public interface RoomRepository extends JpaRepository<Room, Integer>{
     
-
 }

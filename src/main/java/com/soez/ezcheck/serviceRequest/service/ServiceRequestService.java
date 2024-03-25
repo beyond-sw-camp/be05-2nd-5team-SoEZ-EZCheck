@@ -20,8 +20,8 @@ public class ServiceRequestService {
     private final ServiceRequestRepository serviceRequestRepository;
     private final UserRepository userRepository;
     
-    public List<ServiceRequest> findMyRequests(String id){ /////// 유저 아이디로 서비스 요청 조회
-        Optional<Users> OptionalUser = userRepository.findById(id);
+    public List<ServiceRequest> findMyRequests(ServiceRequestDTO requestDTO){ /////// 유저 아이디로 서비스 요청 조회
+        Optional<Users> OptionalUser = userRepository.findById(requestDTO.getuId());
         if(OptionalUser.isPresent()){
             return serviceRequestRepository.findByUsers(OptionalUser.get());
         } else {
