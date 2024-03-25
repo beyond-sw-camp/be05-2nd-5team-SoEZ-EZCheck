@@ -65,7 +65,7 @@ public class CheckOutServiceImpl {
 	}
 
 	/**
-	 * 체크아웃 ID로 참조된 체크아웃 요청을 승인 및 해당 객실의 상태를 AVAILABLE로 변경
+	 * 체크아웃 ID로 참조된 체크아웃 요청을 승인 및 해당 객실의 상태를 MAINTENANCE로 변경
 	 * @author Jihwan
 	 * @param checkoutId 승인할 체크아웃 요청 ID
 	 */
