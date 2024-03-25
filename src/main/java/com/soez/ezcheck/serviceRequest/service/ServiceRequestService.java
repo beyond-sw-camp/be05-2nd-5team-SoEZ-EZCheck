@@ -3,8 +3,9 @@ package com.soez.ezcheck.serviceRequest.service;
 import org.springframework.stereotype.Service;
 
 import com.soez.ezcheck.entity.ServiceRequest;
+import com.soez.ezcheck.entity.ServiceRequestStatusEnum;
 import com.soez.ezcheck.entity.Users;
-import com.soez.ezcheck.serviceRequest.dto.ServiceRequestDTO;
+import com.soez.ezcheck.serviceRequest.domain.ServiceRequestDTO;
 import com.soez.ezcheck.serviceRequest.repository.ServiceRequestRepository;
 import com.soez.ezcheck.user.repository.UserRepository;
 
@@ -28,17 +29,21 @@ public class ServiceRequestService {
         }
     }
 
-    public void addServiceRequest(ServiceRequestDTO requestDTO){ /////// 서비스 요청 추가
+    public Boolean addServiceRequest(ServiceRequestDTO requestDTO){ /////// 서비스 요청 추가
         ServiceRequest request = new ServiceRequest();
-        request.setServiceRequestStatusEnum(requestDTO.getServiceRequestStatusEnum());
+        request.setServiceRequestStatusEnum(ServiceRequestStatusEnum.PENDING);
         request.setServiceRequestTypeEnum(requestDTO.getServiceRequestTypeEnum());
-        Optional<Users> OptionalUser = userRepository.findById(requestDTO.getUId());
+        Optional<Users> OptionalUser = userRepository.findById(requestDTO.getuId());
         if(OptionalUser.isPresent()){
-            request.setUsers(OptionalUser.get()); 
+            try{
+                request.setUsers(OptionalUser.get());
+                serviceRequestRepository.save(request);
+                return true;
+            } catch (Exception e){
+                return false;
+            }
         } else {
             throw new IllegalArgumentException("User not found");
         }
-        serviceRequestRepository.save(request);
     }
-
 }
