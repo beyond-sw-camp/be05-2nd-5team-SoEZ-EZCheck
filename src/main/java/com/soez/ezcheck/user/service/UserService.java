@@ -15,7 +15,6 @@ import com.soez.ezcheck.user.domain.UserSignInDTO;
 import com.soez.ezcheck.user.domain.UserSignUpDTO;
 import com.soez.ezcheck.user.repository.UsersRepository;
 
-import jakarta.transaction.Transactional;
 import lombok.RequiredArgsConstructor;
 
 @Service
@@ -68,12 +67,12 @@ public class UserService {
 	}
 
 	@Transactional
-	public SignInResponse signIn(UserSignInDTO UserSignInDTO){
+	public SignInResponse signIn(UserSignInDTO UserSignInDTO) {
 		Optional<Users> users = usersRepository.findById(UserSignInDTO.getUserId());
-		if(users.isPresent()){
-			if(passwordEncoder.matches(UserSignInDTO.getPassword(), users.get().getUPwd())){
+		if (users.isPresent()) {
+			if (passwordEncoder.matches(UserSignInDTO.getPassword(), users.get().getUPwd())) {
 				String token = tokenProvider.createToken(String.format("%s:%s", users.get().getUId(), "User"));
-				return new SignInResponse(users.get().getUId() , "User", token);
+				return new SignInResponse(users.get().getUId(), "User", token);
 			}
 		}
 		return null;
