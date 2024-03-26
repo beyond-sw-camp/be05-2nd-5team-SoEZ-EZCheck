@@ -5,11 +5,14 @@ import java.util.List;
 
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
+import com.soez.ezcheck.user.SignInResponse;
+import com.soez.ezcheck.user.domain.UserSignInDTO;
 import com.soez.ezcheck.user.domain.UserSignUpDTO;
 import com.soez.ezcheck.user.service.UserService;
 
@@ -39,6 +42,13 @@ public class UsersController {
 		}
 
 		msg = userService.signUp(userSignUpDTO);
+		return new ResponseEntity<>(msg, HttpStatus.OK);
+	}
+
+	@GetMapping("/signin")
+	public ResponseEntity<SignInResponse> signIn(@RequestBody UserSignInDTO userSignInDTO) {
+		System.out.println("debug >>> 로그인 컨트롤러");
+		SignInResponse msg = userService.signIn(userSignInDTO);
 		return new ResponseEntity<>(msg, HttpStatus.OK);
 	}
 
