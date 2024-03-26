@@ -46,5 +46,35 @@ public class ServiceRequestService {
 		} else {
 			throw new IllegalArgumentException("User not found");
 		}
+
 	}
+
+
+	public List<ServiceRequest> findAllServiceRequest() {
+		List<ServiceRequest> list = serviceRequestRepository.findAll();
+		return list;
+	}
+
+	public List<ServiceRequest> findServiceRequestByUId(String uId) {
+//        List<ServiceRequest> list = repository.UidServiceRequest(uId);
+		return serviceRequestRepository.UidServiceRequest(uId);
+	}
+
+
+	public Optional<ServiceRequest> find(Integer rqId) {
+		return serviceRequestRepository.findById(rqId);
+	}
+
+	public String updateServiceRequestStatus(Integer rqId) {
+		Optional<ServiceRequest> data = serviceRequestRepository.findById(rqId);
+		if ( data.isPresent() ) {
+			data.get().setServiceRequestStatusEnum(ServiceRequestStatusEnum.COMPLETED);
+			ServiceRequest updateRequestStatus = serviceRequestRepository.save(data.get());
+			return "객실 상태를 변경했습니다^^";
+		}
+		return "객실 상태 변경에 실패했습니다. 요청자를 확인해 주세요";
+	}
+
+
+
 }

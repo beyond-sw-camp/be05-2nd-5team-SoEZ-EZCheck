@@ -1,7 +1,8 @@
 package com.soez.ezcheck.room.controller;
 
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.MediaType;
+import org.springframework.web.bind.annotation.*;
 
 import com.soez.ezcheck.entity.Reservation;
 import com.soez.ezcheck.entity.Room;
@@ -15,9 +16,6 @@ import java.util.Optional;
 
 import org.apache.catalina.connector.Response;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestParam;
 
 
 @RestController
@@ -41,6 +39,25 @@ public class RoomController {
 
         System.out.println(responseEntity.getBody());
         return null;
+    }
+
+
+
+    // 청소가 끝난 방의 ID 알고 있음
+    // 그 방의 객실 상태를 AVAILABLE 로 변경
+    // 쿼리 실행 메서드를 조건에 부합하는 결과물
+    @GetMapping(value = "/updateRoomStatus/{rid}", produces = {MediaType.APPLICATION_JSON_VALUE})
+    public ResponseEntity<String> updateRoomStatus(@PathVariable("rid") Integer roomId) {
+        Optional<Room> room = roomService.find(roomId);
+        String msg;
+        if (room.isPresent()) {
+            msg = roomService.updateRoomStatus(room.get().getRId());
+        } else {
+            msg = "객실 상태 변경에 실패했습니다. 객실 번호를 다시 확인해 주세요.";
+        }
+        room.ifPresent(value -> System.out.println("debug >>>>>>>>> " + value));
+
+        return new ResponseEntity<>(msg, HttpStatus.OK);
     }
     
 }
