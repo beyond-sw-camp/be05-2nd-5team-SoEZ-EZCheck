@@ -6,6 +6,7 @@ import java.util.Optional;
 
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import com.soez.ezcheck.entity.Users;
 import com.soez.ezcheck.security.TokenProvider;
