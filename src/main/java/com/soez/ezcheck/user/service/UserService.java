@@ -5,6 +5,7 @@ import java.util.List;
 
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import com.soez.ezcheck.entity.Users;
 import com.soez.ezcheck.user.domain.UserSignUpDTO;
@@ -26,6 +27,7 @@ public class UserService {
 	 * @param userSignUpDTO ID, 이름, 비밀번호, 비밀번호 확인, 전화번호, 이메일을 포함하는 DTO
 	 * @return 가입 성공여부에 따른 결과 메시지
 	 */
+	@Transactional
 	public List<String> signUp(UserSignUpDTO userSignUpDTO) {
 
 		String uId = userSignUpDTO.getUserId();
