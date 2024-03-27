@@ -45,6 +45,9 @@ dependencies {
     implementation 'org.springframework.boot:spring-boot-starter-mail'
     //redis 추가
     implementation 'org.springframework.boot:spring-boot-starter-data-redis'
+
+    //swagger 추가
+    implementation 'org.springdoc:springdoc-openapi-starter-webmvc-ui:2.2.0'
 }
 
 tasks.named('test') {
