@@ -6,6 +6,7 @@ import java.util.Map;
 
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
@@ -37,6 +38,7 @@ public class UsersController {
 	 * @param userSignUpDTO 사용자가 입력한 ID, 이름, 비밀번호, 비밀번호 확인, 전화번호, 이메일
 	 * @return 회원가입 성공여부에 따른 결과 메시지
 	 */
+
 	@PostMapping("/signup")
 	public ResponseEntity<List<String>> signUp(@Valid @RequestBody UserSignUpDTO userSignUpDTO) {
 		List<String> msg = new ArrayList<>();
@@ -96,6 +98,7 @@ public class UsersController {
 	 * @param request 사용자가 입력한 ID, 이메일, 새로운 비밀번호
 	 * @return 비밀번호 재설정 성공여부에 따른 결과 메시지
 	 */
+	@PreAuthorize("hasAuthority('User')")
 	@PostMapping("/reset-password")
 	public ResponseEntity<String> resetPassword(@RequestBody Map<String, String> request) {
 		String userId = request.get("userId");
@@ -117,6 +120,7 @@ public class UsersController {
 	 * @param request 사용자가 입력한 이메일 주소, 인증코드, 새로운 비밀번호
 	 * @return 비밀번호 재설정 성공여부에 따른 결과 메시지
 	 */
+	@PreAuthorize("hasAuthority('User')")
 	@PostMapping("/newpassword")
 	public ResponseEntity<String> verifyResetPassword(@RequestBody Map<String, String> request) {
 		String email = request.get("email");

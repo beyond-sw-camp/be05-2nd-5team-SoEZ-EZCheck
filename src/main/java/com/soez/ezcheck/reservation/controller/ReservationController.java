@@ -29,7 +29,7 @@ public class ReservationController {
 
     private final ReservationService reservationService;
 
-    @PreAuthorize("hasAuthority('User')")
+
     @Tag(name = "Reservation-All")
     @GetMapping("/listAvailableGrades")
     public ResponseEntity<List<RoomGrade>> listAvailableGrades(@RequestBody ReservationRequestDTO requestDTO) {
