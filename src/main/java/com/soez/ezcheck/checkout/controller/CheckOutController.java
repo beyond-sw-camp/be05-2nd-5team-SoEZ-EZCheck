@@ -8,11 +8,14 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.PutMapping;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
+import com.soez.ezcheck.checkIn.repository.CheckInRepository;
 import com.soez.ezcheck.checkout.domain.CheckOutDTO;
 import com.soez.ezcheck.checkout.service.CheckOutServiceImpl;
 
@@ -24,6 +27,7 @@ import lombok.RequiredArgsConstructor;
 public class CheckOutController {
 
 	private final CheckOutServiceImpl checkOutServiceImpl;
+	private final CheckInRepository checkInRepository;
 
 	/**
 	 * 조건에 상관없이 모든 체크아웃 요청 내역을 최신순으로 조회
@@ -71,6 +75,30 @@ public class CheckOutController {
 	public ResponseEntity<String> rejectCheckOutRequest(@PathVariable Integer coutId) {
 		checkOutServiceImpl.rejectCheckOut(coutId);
 		return new ResponseEntity<>("체크아웃 요청을 거절하였습니다.", HttpStatus.OK);
+	}
+
+	/**
+	 체크아웃 요청
+	 @param rId 객실 ID
+	 @return 체크아웃 요청(rId)
+	 */
+	@PostMapping("/checkoutrequest")
+	public String requestCheckOut(@RequestBody Integer rId) { //roomid로 받고
+		checkOutServiceImpl.requestCheckOut(rId);
+		return "체크아웃이 요청되었습니다.";
+	}
+
+	/**
+	 체크아웃 확정
+	 */
+	@PostMapping("/perform")
+	public ResponseEntity<String> performCheckOut(@RequestParam(required = false) Integer cinId) {
+		if (cinId == null || !checkInRepository.existsById(cinId)) {
+			return ResponseEntity.ok("체크아웃되지 않았습니다.");
+		} else {
+			checkOutServiceImpl.checkOut(cinId);
+			return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body("체크아웃되었습니다..");
+		}
 	}
 
 }
