@@ -97,9 +97,31 @@ public class UserService {
 	 */
 	public void resetPassword(String email, String newPassword) {
 		Users users = usersRepository.findByUEmail(email)
-			.orElseThrow(() -> new UsernameNotFoundException(email + "에 해당하는 사용자가 없습니다."));
+			.orElseThrow(() -> new UsernameNotFoundException(email + "로 가입된 사용자가 없습니다."));
 		users.setUPwd(passwordEncoder.encode(newPassword));
 		usersRepository.save(users);
+	}
+
+	/**
+	 * 사용자로부터 입력받은 아이디와 비밀번호가 일치하는지 확인
+	 * @author Jihwan
+	 * @param userId 사용자 ID
+	 * @param password 사용자 비밀번호
+	 * @return 사용자 비밀번호 일치 여부
+	 */
+	public boolean checkPassword(String userId, String password) {
+		Users user = usersRepository.findById(userId)
+			.orElseThrow(() -> new UsernameNotFoundException(userId + "와 일치하는 사용자가 없습니다."));
+		return passwordEncoder.matches(password, user.getUPwd());
+	}
+
+	/**
+	 * 사용자 계정 삭제
+	 * @author Jihwan
+	 * @param userId 삭제할 사용자 ID
+	 */
+	public void deleteAccount(String userId) {
+		usersRepository.deleteById(userId);
 	}
 
 }
