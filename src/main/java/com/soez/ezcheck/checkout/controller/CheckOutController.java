@@ -28,7 +28,7 @@ public class CheckOutController {
 	/**
 	 * 조건에 상관없이 모든 체크아웃 요청 내역을 최신순으로 조회
 	 * @author Jihwan
-	 * @return 최신순으로 정렬된 체크아웃 요청들 List<>
+	 * @return 최신순으로 정렬된 모든 체크아웃 요청들 List<>
 	 */
 	@GetMapping("/all")
 	public ResponseEntity<List<CheckOutDTO>> getAllCheckOutRecords() {
@@ -50,6 +50,7 @@ public class CheckOutController {
 	}
 
 	/**
+	 * 체크아웃 요청 승인
 	 * @author Jihwan
 	 * @param coutId 승인할 체크아웃 요청 ID
 	 * @return 체크아웃 승인 메시지
@@ -61,6 +62,7 @@ public class CheckOutController {
 	}
 
 	/**
+	 * 체크아웃 요청 거절
 	 * @author Jihwan
 	 * @param coutId 거절할 체크아웃 요청 ID
 	 * @return 체크아웃 거절 메시지

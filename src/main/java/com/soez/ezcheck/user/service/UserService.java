@@ -4,6 +4,7 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 
+import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -26,11 +27,10 @@ public class UserService {
 	private final TokenProvider tokenProvider;
 
 	/**
-	 * 사용자로부터 입력받은 값들로 회원가입을 진행.
-	 * ID, 이메일, 전화번호 중 중복값이 존재할 경우 오류 메시지 반환.
+	 * 회원가입
 	 * @author Jihwan
-	 * @param userSignUpDTO ID, 이름, 비밀번호, 비밀번호 확인, 전화번호, 이메일을 포함하는 DTO
-	 * @return 가입 성공여부에 따른 결과 메시지
+	 * @param userSignUpDTO 사용자가 입력한 ID, 이름, 비밀번호, 비밀번호 확인, 전화번호, 이메일
+	 * @return 회원가입 성공여부에 따른 결과 메시지
 	 */
 	@Transactional
 	public List<String> signUp(UserSignUpDTO userSignUpDTO) {
@@ -67,14 +67,39 @@ public class UserService {
 	}
 
 	@Transactional
-	public SignInResponse signIn(UserSignInDTO UserSignInDTO) {
-		Optional<Users> users = usersRepository.findById(UserSignInDTO.getUserId());
+	public SignInResponse signIn(UserSignInDTO userSignInDTO) {
+		Optional<Users> users = usersRepository.findById(userSignInDTO.getUserId());
 		if (users.isPresent()) {
-			if (passwordEncoder.matches(UserSignInDTO.getPassword(), users.get().getUPwd())) {
+			if (passwordEncoder.matches(userSignInDTO.getPassword(), users.get().getUPwd())) {
 				String token = tokenProvider.createToken(String.format("%s:%s", users.get().getUId(), "User"));
 				return new SignInResponse(users.get().getUId(), "User", token);
 			}
 		}
 		return null;
 	}
+
+	/**
+	 * 입력받은 사용자 ID와 이메일로 사용자 정보가 존재하는지 확인
+	 * @author Jihwan
+	 * @param userId 사용자 ID
+	 * @param email 사용자 이메일
+	 * @return 사용자 정보 존재 여부
+	 */
+	public boolean existsByUIdAndUEmail(String userId, String email) {
+		return usersRepository.existsByUIdAndUEmail(userId, email);
+	}
+
+	/**
+	 * 사용자로부터 입력받은 이메일로 비밀번호 재설정
+	 * @author Jihwan
+	 * @param email 사용자 이메일
+	 * @param newPassword 새로운 비밀번호
+	 */
+	public void resetPassword(String email, String newPassword) {
+		Users users = usersRepository.findByUEmail(email)
+			.orElseThrow(() -> new UsernameNotFoundException(email + "에 해당하는 사용자가 없습니다."));
+		users.setUPwd(passwordEncoder.encode(newPassword));
+		usersRepository.save(users);
+	}
+
 }

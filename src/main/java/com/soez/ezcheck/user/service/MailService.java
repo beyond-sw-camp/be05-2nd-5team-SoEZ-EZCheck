@@ -5,6 +5,7 @@ import java.util.Random;
 import org.springframework.mail.javamail.JavaMailSender;
 import org.springframework.mail.javamail.MimeMessageHelper;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import com.soez.ezcheck.config.RedisUtil;
 
@@ -18,45 +19,65 @@ public class MailService {
 
 	private final JavaMailSender javaMailSender;
 	private final RedisUtil redisUtil;
-	private static int authNumber;
+	private static String authCode;
 
 	/**
-	 * 임의의 6자리 인증코드를 생성
+	 * 임의의 8자리 인증코드 생성
 	 * @author Jihwan
 	 */
-	public static void makeRandomNumber() {
-		Random r = new Random();
-		StringBuilder randomNumber = new StringBuilder();
-		for (int i = 0; i < 6; i++) {
-			randomNumber.append(r.nextInt(10));
+	public static void createAuthCode() {
+		StringBuilder key = new StringBuilder();
+		Random rand = new Random();
+
+		for (int i = 0; i < 8; i++) { // 인증코드 8자리
+			int index = rand.nextInt(3); // 0~2 까지 랜덤
+
+			switch (index) {
+				case 0:
+					key.append((char)(rand.nextInt(26) + 97));
+					//  a~z  (ex. 1+97=98 => (char)98 = 'b')
+					break;
+				case 1:
+					key.append((char)(rand.nextInt(26) + 65));
+					//  A~Z
+					break;
+				case 2:
+					key.append((rand.nextInt(10)));
+					// 0~9
+					break;
+			}
 		}
 
-		authNumber = Integer.parseInt(randomNumber.toString());
+		authCode = key.toString();
 	}
 
 	/**
-	 * 메일 제목, 내용, 보내는이, 쓰는이 등 세부사항을 설정
+	 * 인증코드 생성 및 이메일 전송
 	 * @author Jihwan
 	 * @param email 인증메일을 보낼 이메일 주소
-	 * @return 6자리 인증코드
+	 * @return 8자리 인증코드
 	 */
 	public String setEmail(String email) {
-		makeRandomNumber();
+		createAuthCode();
 		String fromEmail = "leyqorwlghks@gmail.com";
 		String toEmail = email;
 		String title = "본인확인 인증 이메일 입니다.";
-		// String content =
-		// 	"이지스테이를 방문해주셔서 감사합니다." +
-		// 		"<br><br>" +
-		// 		"인증 번호는 " + authNumber + "입니다." +
-		// 		"<br>" +
-		// 		"인증번호를 정확하게 입력해주세요 :)";
 		String body = "";
-		body += "<h3>" + "이지스테이를 방문해주셔서 감사합니다." + "</h3>";
-		body += "<h1>" + "인증번호는 " + authNumber + " 입니다." + "</h1>";
-		body += "<h3>" + "인증번호를 정확하게 입력해주세요 :)" + "</h3>";
+		body += "<div style='margin:100px;'>";
+		body += "<h1> 안녕하세요 이지스테이 입니다. </h1>";
+		body += "<br>";
+		body += "<p>아래 코드를 회원가입 창으로 돌아가 입력해주세요<p>";
+		body += "<br>";
+		body += "<p>감사합니다!<p>";
+		body += "<br>";
+		body += "<div align='center' style='border:1px solid black; font-family:verdana';>";
+		body += "<h3 style='color:blue;'>회원가입 인증 코드입니다.</h3>";
+		body += "<div style='font-size:130%'>";
+		body += "CODE : <strong>";
+		body += authCode + "</strong><div><br/> ";
+		body += "</div>";
 		sendMail(fromEmail, toEmail, title, body);
-		return Integer.toString(authNumber);
+		return authCode;
 	}
 
 	/**
@@ -67,6 +88,7 @@ public class MailService {
 	 * @param title 메일 제목
 	 * @param content 메일 내용
 	 */
+	@Transactional
 	public void sendMail(String fromEmail, String toEmail, String title, String content) {
 		MimeMessage message = javaMailSender.createMimeMessage();
 		try {
@@ -79,16 +101,17 @@ public class MailService {
 		} catch (MessagingException e) {
 			e.printStackTrace();
 		}
-		redisUtil.setDataExpire(Integer.toString(authNumber), toEmail, 60 * 5L);
+		redisUtil.setDataExpire(authCode, toEmail, 60 * 5L);
 	}
 
 	/**
-	 * 사용자가 입력한 인증번호가 전송된 인증번호와 일치하는지 확인
+	 * 사용자가 입력한 인증코드가 전송된 인증코드와 일치하는지 확인
 	 * @author Jihwan
 	 * @param email 사용자가 인증번호를 받은 이메일
-	 * @param authNumber 사용자가 해당 이메일로 받은 인증번호
-	 * @return 사용자가 입력한 인증번호와 전송됐었던 인증번호가 일치하는지 여부
+	 * @param authNumber 사용자가 해당 이메일로 받은 인증코드
+	 * @return 사용자가 입력한 인증코드와 전송됐었던 인증코드가 일치하는지 여부
 	 */
+	@Transactional(readOnly = true)
 	public boolean checkAuthNumber(String email, String authNumber) {
 		if (redisUtil.getData(authNumber) == null) {
 			return false;
