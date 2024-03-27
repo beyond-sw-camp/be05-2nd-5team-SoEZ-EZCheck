@@ -3,7 +3,7 @@
 <div align="center">
     <h1> Hotel Management Service </h1>
 </div>
-<br/>
+<br/></br>
 
 ## 📣 프로젝트 소개
 
