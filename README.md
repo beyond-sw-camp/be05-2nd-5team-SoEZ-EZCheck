@@ -1,4 +1,4 @@
-<div align="center"><img src="https://github.com/beyond-sw-camp/be05-2nd-SoEZ-EZCheck/assets/112090609/4d720be3-fae5-45fa-a0b4-7cdf1ae32db6"/ width="500"></div>
+<div align="center"><img src="https://github.com/beyond-sw-camp/be05-2nd-SoEZ-EZCheck/assets/112090609/4d720be3-fae5-45fa-a0b4-7cdf1ae32db6"/ width="600"></div>
 
 <div align="center">
     <h1> Hotel Management Service </h1>
