@@ -10,6 +10,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
@@ -19,6 +20,7 @@ import com.soez.ezcheck.facility.domain.FacilityReservationDetailsDTO;
 import com.soez.ezcheck.facility.domain.FacilityReservationRequestDTO;
 import com.soez.ezcheck.facility.service.FacilityServiceImpl;
 
+import jakarta.persistence.EntityNotFoundException;
 import lombok.RequiredArgsConstructor;
 
 @RestController
@@ -75,6 +77,34 @@ public class FacilityController {
 	@GetMapping("/user/{uId}")
 	public List<FacilityReservationDetailsDTO> getReservationDetails(@PathVariable("uId") String uId) {
 		return facilityService.getReservationDetails(uId);
+	}
+
+	@PutMapping("/open/{facilityid}")
+	public ResponseEntity<String> openFacility(@PathVariable("facilityid") Integer facilityId) {
+		try {
+			facilityService.openFacility(facilityId);
+			return ResponseEntity.ok("Facility opened successfully.");
+		} catch (EntityNotFoundException e) {
+			return ResponseEntity.notFound().build();
+		}
+	}
+
+	// 시설물 클로우즈   설정4\
+	@PutMapping("/close/{facilityid}")
+	public ResponseEntity<String> closeFacility(@PathVariable("facilityid") Integer facilityId) {
+		try {
+			facilityService.closeFacility(facilityId);
+			return ResponseEntity.ok("Facility closed successfully.");
+		} catch (EntityNotFoundException e) {
+			return ResponseEntity.notFound().build();
+		}
+	}
+
+	// 시간 별 시설물 조회 시설물 id
+	@GetMapping("/facilityreservation/{date}/{time}/{reservNum}")
+	public List<Facility> getAvailabilityForFacility(@PathVariable("date") Date date,
+		@PathVariable("time") Time time, @PathVariable("reservNum") Integer num) {
+		return facilityService.getAvailableFacility(date, time, num);
 	}
 
 }
