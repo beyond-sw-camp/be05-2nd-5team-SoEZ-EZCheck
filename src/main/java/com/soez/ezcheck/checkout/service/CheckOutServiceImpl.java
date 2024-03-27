@@ -1,18 +1,19 @@
 package com.soez.ezcheck.checkout.service;
 
+import java.sql.Time;
+import java.time.LocalDateTime;
 import java.util.Date;
 import java.util.List;
+import java.util.Optional;
 import java.util.stream.Collectors;
 
+import com.soez.ezcheck.checkIn.repository.CheckInRepository;
+import com.soez.ezcheck.entity.*;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import com.soez.ezcheck.checkout.domain.CheckOutDTO;
 import com.soez.ezcheck.checkout.repository.CheckOutRepository;
-import com.soez.ezcheck.entity.CheckOut;
-import com.soez.ezcheck.entity.CheckOutStatusEnum;
-import com.soez.ezcheck.entity.Room;
-import com.soez.ezcheck.entity.RoomStatusEnum;
 import com.soez.ezcheck.room.repository.RoomRepository;
 
 import lombok.RequiredArgsConstructor;
@@ -23,6 +24,7 @@ public class CheckOutServiceImpl {
 
 	private final CheckOutRepository checkOutRepository;
 	private final RoomRepository roomRepository;
+	private final CheckInRepository checkInRepository;
 
 	/**
 	 * 조건에 상관없이 모든 체크아웃 요청 내역을 최신순으로 조회
@@ -95,5 +97,55 @@ public class CheckOutServiceImpl {
 		checkOut.setCheckOutStatusEnum(CheckOutStatusEnum.REJECTED);
 		checkOutRepository.save(checkOut);
 	}
+
+	public void requestCheckOut(Integer rId) {
+		CheckIn checkIn = checkInRepository.findById(rId)
+				//checkInRepository.findById(rId)
+				.orElseThrow(() -> new IllegalArgumentException("체크인 정보를 찾을 수 없습니다."));
+
+		// 이미 체크아웃 요청이 되었는지 확인
+		Optional<CheckOut> existingCheckOut = checkOutRepository.findById(rId);
+		if (existingCheckOut.isPresent()) {
+			throw new IllegalStateException("이미 체크아웃 요청이 처리되었거나 완료되었습니다.");
+		}
+		//체크아웃 요청
+		CheckOut checkOut = new CheckOut();
+		LocalDateTime currentTime = LocalDateTime.now();
+		checkOut.setCheckIn(checkIn);
+		checkOut.setCoutDate(java.sql.Date.valueOf(currentTime.toLocalDate()));
+		checkOut.setCoutTime(Time.valueOf(currentTime.toLocalTime()));
+		checkOut.setCheckOutStatusEnum(CheckOutStatusEnum.INPROGRESS); // 체크아웃 요청 상태로 설정
+		checkOutRepository.save(checkOut);
+	}
+
+
+	// 관리자가 객실 상태를 변경하면 체크아웃 진행-> 객실 비밀번호 초기화, 체크인 정보 삭제
+	public void checkOut(Integer cinId) {
+		System.out.println("debug >>> CO service");
+		CheckIn checkIn = checkInRepository.findById(cinId).orElseThrow(() -> new IllegalArgumentException("체크인 아이디를 찾을 수 없습니다."));
+
+		Room room = checkIn.getRoom();
+		// 관리자가 객실 상태를  AVAILABLE로 변경했는지 확인
+		if (room.getRoomStatusEnum() != RoomStatusEnum.AVAILABLE) {
+			throw new IllegalStateException("관리자가 아직 체크아웃을 승인하지 않았습니다.");
+		} else {
+
+			// 객실 비밀번호 초기화
+			room.setRPwd("0000");//스트링으로 0000
+			roomRepository.save(room);
+
+			CheckOut checkOut = new CheckOut();
+			LocalDateTime currentTime = LocalDateTime.now();
+			checkOut.setCoutDate(java.sql.Date.valueOf(currentTime.toLocalDate()));
+			checkOut.setCoutTime(Time.valueOf(currentTime.toLocalTime()));
+			checkOutRepository.save(checkOut);
+
+			// 체크인 정보 삭제
+			checkInRepository.delete(checkIn);
+		}
+	}
+
+
+
 
 }
