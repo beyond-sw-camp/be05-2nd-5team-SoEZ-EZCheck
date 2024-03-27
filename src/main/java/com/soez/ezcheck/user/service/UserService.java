@@ -12,6 +12,7 @@ import org.springframework.transaction.annotation.Transactional;
 import com.soez.ezcheck.entity.Users;
 import com.soez.ezcheck.security.TokenProvider;
 import com.soez.ezcheck.user.SignInResponse;
+import com.soez.ezcheck.user.domain.UserInfoDTO;
 import com.soez.ezcheck.user.domain.UserSignInDTO;
 import com.soez.ezcheck.user.domain.UserSignUpDTO;
 import com.soez.ezcheck.user.repository.UsersRepository;

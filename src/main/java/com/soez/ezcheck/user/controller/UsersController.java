@@ -4,6 +4,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 import org.springframework.http.HttpStatus;
+import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -15,6 +16,7 @@ import com.soez.ezcheck.user.SignInResponse;
 import com.soez.ezcheck.user.domain.AccountDeleteDTO;
 import com.soez.ezcheck.user.domain.EmailCheckDTO;
 import com.soez.ezcheck.user.domain.PasswordResetDTO;
+import com.soez.ezcheck.user.domain.UserInfoDTO;
 import com.soez.ezcheck.user.domain.UserSignInDTO;
 import com.soez.ezcheck.user.domain.UserSignUpDTO;
 import com.soez.ezcheck.user.service.MailService;
