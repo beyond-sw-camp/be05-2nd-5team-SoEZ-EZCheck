@@ -157,4 +157,17 @@ public class UsersController {
 		return new ResponseEntity<>("회원탈퇴가 완료되었습니다.", HttpStatus.OK);
 	}
 
+	/**
+	 * 사용자 ID로 사용자 정보 조회
+	 * @author Jihwan
+	 * @param requestDTO 사용자 ID
+	 * @return 사용자 ID, 이름, 전화번호, 이메일을 포함한 사용자 정보
+	 */
+	@GetMapping(value = "/userinfo", produces = MediaType.APPLICATION_JSON_VALUE)
+	public ResponseEntity<UserInfoDTO> getUserInfo(@RequestBody UserInfoDTO requestDTO) {
+		UserInfoDTO userInfo = userService.getUserInfo(requestDTO.getUserId());
+		System.out.println(userInfo);
+		return new ResponseEntity<>(userInfo, HttpStatus.OK);
+	}
+
 }
