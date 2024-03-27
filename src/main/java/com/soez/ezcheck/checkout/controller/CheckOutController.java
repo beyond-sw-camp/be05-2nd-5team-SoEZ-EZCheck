@@ -6,6 +6,7 @@ import java.util.List;
 import org.springframework.format.annotation.DateTimeFormat;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -34,6 +35,7 @@ public class CheckOutController {
 	 * @author Jihwan
 	 * @return 최신순으로 정렬된 모든 체크아웃 요청들 List<>
 	 */
+	@PreAuthorize("hasAuthority('Admin')")
 	@GetMapping("/all")
 	public ResponseEntity<List<CheckOutDTO>> getAllCheckOutRecords() {
 		List<CheckOutDTO> checkOutRecords = checkOutServiceImpl.getAllCheckOutRecords();
@@ -46,6 +48,7 @@ public class CheckOutController {
 	 * @param selectedDate 조회하려는 날짜
 	 * @return 최신순으로 정렬된 체크아웃 요청들 List<>
 	 */
+	@PreAuthorize("hasAuthority('Admin')")
 	@GetMapping("/date")
 	public ResponseEntity<List<CheckOutDTO>> getCheckOutRecordsByDate(
 		@RequestParam("selectedDate") @DateTimeFormat(pattern = "yyyy-MM-dd") Date selectedDate) {
@@ -59,6 +62,7 @@ public class CheckOutController {
 	 * @param coutId 승인할 체크아웃 요청 ID
 	 * @return 체크아웃 승인 메시지
 	 */
+	@PreAuthorize("hasAuthority('Admin')")
 	@PutMapping("/approve/{coutId}")
 	public ResponseEntity<String> approveCheckOutRequest(@PathVariable Integer coutId) {
 		checkOutServiceImpl.approveCheckOut(coutId);
@@ -71,6 +75,7 @@ public class CheckOutController {
 	 * @param coutId 거절할 체크아웃 요청 ID
 	 * @return 체크아웃 거절 메시지
 	 */
+	@PreAuthorize("hasAuthority('Admin')")
 	@PutMapping("/reject/{coutId}")
 	public ResponseEntity<String> rejectCheckOutRequest(@PathVariable Integer coutId) {
 		checkOutServiceImpl.rejectCheckOut(coutId);
@@ -82,6 +87,7 @@ public class CheckOutController {
 	 @param rId 객실 ID
 	 @return 체크아웃 요청(rId)
 	 */
+	@PreAuthorize("hasAuthority('User')")
 	@PostMapping("/checkoutrequest")
 	public String requestCheckOut(@RequestBody Integer rId) { //roomid로 받고
 		checkOutServiceImpl.requestCheckOut(rId);
@@ -91,6 +97,7 @@ public class CheckOutController {
 	/**
 	 체크아웃 확정
 	 */
+	@PreAuthorize("hasAuthority('User')")
 	@PostMapping("/perform")
 	public ResponseEntity<String> performCheckOut(@RequestParam(required = false) Integer cinId) {
 		if (cinId == null || !checkInRepository.existsById(cinId)) {

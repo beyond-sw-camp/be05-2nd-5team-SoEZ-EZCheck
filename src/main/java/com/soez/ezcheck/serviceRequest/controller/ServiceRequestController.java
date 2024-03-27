@@ -26,7 +26,7 @@ import com.soez.ezcheck.serviceRequest.service.ServiceRequestService;
 import io.swagger.v3.oas.annotations.tags.Tag;
 import lombok.RequiredArgsConstructor;
 
-@PreAuthorize("hasAuthority('User')")
+@PreAuthorize("hasAuthority('Admin')")
 @RequiredArgsConstructor
 @RestController
 @RequestMapping("/serviceRequest")

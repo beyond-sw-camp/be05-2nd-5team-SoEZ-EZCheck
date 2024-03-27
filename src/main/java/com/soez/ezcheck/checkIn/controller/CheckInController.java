@@ -3,7 +3,9 @@ package com.soez.ezcheck.checkIn.controller;
 import java.sql.Date;
 import java.util.List;
 
+import io.swagger.v3.oas.annotations.tags.Tag;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -33,6 +35,8 @@ public class CheckInController {
 	private final CheckInRepository checkInRepository;
 	private final ReservationService reservationService;
 
+
+	@Tag(name = " checkIn-User()")
 	@GetMapping("/checkInUsers/{date}")
 	public List<CheckIn> getMethodName(@PathVariable("date") Date date) {
 		List<CheckIn> list = checkInService.checkInsByDate(date);
@@ -40,18 +44,21 @@ public class CheckInController {
 		return list;
 	}
 
+	@PreAuthorize("hasAuthority('User')")
 	@GetMapping("/reservations/{uId}")
 	public ResponseEntity<List<Reservation>> findAllReservationsById(@PathVariable("rvId") Integer rvId) {
 		List<Reservation> reservations = checkInService.findAllReservationsById(rvId);
 		return ResponseEntity.ok(reservations);
 	}
 
+	@PreAuthorize("hasAuthority('User')")
 	@GetMapping("/reservations/available")
 	public ResponseEntity<List<Room>> findAvailableRooms(@RequestParam Integer rId) {
 		List<Room> availableRooms = checkInService.findAvailableRooms(rId);
 		return ResponseEntity.ok(availableRooms);
 	}
 
+	@PreAuthorize("hasAuthority('User')")
 	@PostMapping("/pcheckIn")
 	public ResponseEntity<String> checkIn(@RequestBody CheckInRequestDTO request) {
 		try {

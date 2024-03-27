@@ -1,7 +1,9 @@
 package com.soez.ezcheck.room.controller;
 
+import io.swagger.v3.oas.annotations.tags.Tag;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.*;
 
 import com.soez.ezcheck.entity.Reservation;
@@ -25,6 +27,7 @@ public class RoomController {
     
     private final RoomService roomService;
 
+    @PreAuthorize("hasAuthority('Admin')")
     @GetMapping("/availableRooms")
     public ResponseEntity<List<Room>> getMethodName(@RequestBody AvailableRoomsRequestDTO requestParam) {
         ResponseEntity<List<Object[]>> responseEntity = null;
@@ -46,6 +49,7 @@ public class RoomController {
     // 청소가 끝난 방의 ID 알고 있음
     // 그 방의 객실 상태를 AVAILABLE 로 변경
     // 쿼리 실행 메서드를 조건에 부합하는 결과물
+    @PreAuthorize("hasAuthority('Admin')")
     @GetMapping(value = "/updateRoomStatus/{rid}", produces = {MediaType.APPLICATION_JSON_VALUE})
     public ResponseEntity<String> updateRoomStatus(@PathVariable("rid") Integer roomId) {
         Optional<Room> room = roomService.find(roomId);
