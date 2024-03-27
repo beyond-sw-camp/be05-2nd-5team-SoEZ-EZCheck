@@ -18,9 +18,10 @@ import com.soez.ezcheck.entity.RoomGrade;
 import com.soez.ezcheck.reservation.domain.ReservationRequestDTO;
 import com.soez.ezcheck.reservation.service.ReservationService;
 
+import io.swagger.v3.oas.annotations.tags.Tag;
 import lombok.RequiredArgsConstructor;
 
-@PreAuthorize("hasAuthority('User')")
+
 @RestController
 @RequiredArgsConstructor
 @RequestMapping("/reservation")
@@ -38,6 +39,7 @@ public class ReservationController {
         }
     }
 
+    @PreAuthorize("hasAuthority('User')")
     @PostMapping("/make")
     public ResponseEntity<Boolean> makeReservation(@RequestBody ReservationRequestDTO requestDTO){
         Boolean response = reservationService.addReservation(requestDTO);
@@ -48,6 +50,7 @@ public class ReservationController {
         }
     }
 
+    @PreAuthorize("hasAuthority('User')")
     @GetMapping("/myReservations")
     public ResponseEntity<String> myReservations(@RequestBody ReservationRequestDTO requestDTO) {
         List<Reservation> list = reservationService.findMyReservations(requestDTO.getuId());
@@ -58,6 +61,7 @@ public class ReservationController {
         }
     }
 
+    @PreAuthorize("hasAuthority('User')")
     @DeleteMapping("/delete")
     public ResponseEntity<String> deleteReservation(@RequestBody Reservation requestDTO) {
         boolean deleted = reservationService.deleteReservation(requestDTO);

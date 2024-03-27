@@ -7,9 +7,11 @@ import java.util.List;
 
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
@@ -19,6 +21,7 @@ import com.soez.ezcheck.facility.domain.FacilityReservationDetailsDTO;
 import com.soez.ezcheck.facility.domain.FacilityReservationRequestDTO;
 import com.soez.ezcheck.facility.service.FacilityServiceImpl;
 
+import jakarta.persistence.EntityNotFoundException;
 import lombok.RequiredArgsConstructor;
 
 @RestController
@@ -34,7 +37,7 @@ public class FacilityController {
 	 * @param requestDTO 예약을 원하는 인원수, 날짜, 시간
 	 * @return 조회된 예약이 가능한 시설물들 리스트 List<>
 	 */
-	@GetMapping("/list")
+	 @GetMapping("/list")
 	public ResponseEntity<List<Facility>> listFacilities(@RequestBody FacilityReservationRequestDTO requestDTO) {
 		Integer peopleToReserve = requestDTO.getPeopleToReserve();
 		Date date = requestDTO.getDate();
@@ -60,6 +63,7 @@ public class FacilityController {
 	 * @param requestDTO 시설물 ID, 사용자 ID, 예약할 날짜, 예약할 시간, 예약할 인원수
 	 * @return 날짜와 시간을 포함한 예약 완료 메시지
 	 */
+	@PreAuthorize("hasAuthority('User')")
 	@PostMapping("/reserve")
 	public ResponseEntity<String> makeReservation(@RequestBody FacilityReservationRequestDTO requestDTO) {
 		String msg = facilityService.makeReservation(requestDTO);
@@ -72,9 +76,41 @@ public class FacilityController {
 	 * @param uId 사용자 ID
 	 * @return 예약내역(시설명, 예약 날짜, 예약 시간, 예약 인원수)들을 담은 List<>
 	 */
-	@GetMapping("/user/{uId}")
+	@PreAuthorize("hasAuthority('User')")
+	 @GetMapping("/user/{uId}")
 	public List<FacilityReservationDetailsDTO> getReservationDetails(@PathVariable("uId") String uId) {
 		return facilityService.getReservationDetails(uId);
+	}
+
+	@PreAuthorize("hasAuthority('Admin')")
+	@PutMapping("/open/{facilityid}")
+	public ResponseEntity<String> openFacility(@PathVariable("facilityid") Integer facilityId) {
+		try {
+			facilityService.openFacility(facilityId);
+			return ResponseEntity.ok("Facility opened successfully.");
+		} catch (EntityNotFoundException e) {
+			return ResponseEntity.notFound().build();
+		}
+	}
+
+	// 시설물 클로우즈   설정4\
+	@PreAuthorize("hasAuthority('Admin')")
+	@PutMapping("/close/{facilityid}")
+	public ResponseEntity<String> closeFacility(@PathVariable("facilityid") Integer facilityId) {
+		try {
+			facilityService.closeFacility(facilityId);
+			return ResponseEntity.ok("Facility closed successfully.");
+		} catch (EntityNotFoundException e) {
+			return ResponseEntity.notFound().build();
+		}
+	}
+
+	// 시간 별 시설물 조회 시설물 id
+	@PreAuthorize("hasAuthority('Admin')")
+	@GetMapping("/facilityreservation/{date}/{time}/{reservNum}")
+	public List<Facility> getAvailabilityForFacility(@PathVariable("date") Date date,
+		@PathVariable("time") Time time, @PathVariable("reservNum") Integer num) {
+		return facilityService.getAvailableFacility(date, time, num);
 	}
 
 }

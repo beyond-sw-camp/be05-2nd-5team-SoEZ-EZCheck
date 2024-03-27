@@ -4,6 +4,7 @@ import java.sql.Date;
 import java.sql.Time;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Optional;
 import java.util.stream.Collectors;
 
 import org.springframework.stereotype.Service;
@@ -141,6 +142,38 @@ public class FacilityServiceImpl {
 		dto.setReservationTime(facilityReservation.getFrTime());
 		dto.setNumberOfPeople(facilityReservation.getFrPeopleNum());
 		return dto;
+	}
+
+	public void openFacility(Integer facilityId) {
+		Optional<Facility> optionalFacility = facilityRepository.findById(facilityId);
+		optionalFacility.ifPresent(facility -> facility.setFacilityStatusEnum(FacilityStatusEnum.OPEN));
+		facilityRepository.save(optionalFacility.get());
+	}
+
+	// 클로우즈 상태값 변경
+	public void closeFacility(Integer facilityId) {
+		Optional<Facility> optionalFacility = facilityRepository.findById(facilityId);
+		optionalFacility.ifPresent(facility -> facility.setFacilityStatusEnum(FacilityStatusEnum.CLOSED));
+		facilityRepository.save(optionalFacility.get());
+	}
+
+	public List<Facility> getAvailableFacility(Date date, Time time, Integer reservNum) {
+		List<Facility> list = facilityRepository.findAll();
+		List<FacilityReservation> rsvList = facilityReservationRepository.findByFrDateAndFrTime(date, time);
+		List<Facility> returnList = new ArrayList<Facility>();
+		for (Facility facility : list) {
+			Integer capacity = facility.getFCapacity();
+			Integer sum = 0;
+			for (FacilityReservation rsv : rsvList) {
+				if (rsv.getFacility() == facility) {
+					sum += rsv.getFrPeopleNum();
+				}
+			}
+			if (capacity >= sum + reservNum) {
+				returnList.add(facility);
+			}
+		}
+		return returnList;
 	}
 
 }
