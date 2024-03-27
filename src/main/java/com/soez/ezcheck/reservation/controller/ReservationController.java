@@ -18,6 +18,7 @@ import com.soez.ezcheck.entity.RoomGrade;
 import com.soez.ezcheck.reservation.domain.ReservationRequestDTO;
 import com.soez.ezcheck.reservation.service.ReservationService;
 
+import io.swagger.v3.oas.annotations.tags.Tag;
 import lombok.RequiredArgsConstructor;
 
 @PreAuthorize("hasAuthority('User')")
@@ -28,6 +29,7 @@ public class ReservationController {
 
     private final ReservationService reservationService;
 
+    @Tag(name = "Reservation-All")
     @GetMapping("/listAvailableGrades")
     public ResponseEntity<List<RoomGrade>> listAvailableGrades(@RequestBody ReservationRequestDTO requestDTO) {
         List<RoomGrade> list = reservationService.avalableRoomGrades(requestDTO.getRvDateFrom(), requestDTO.getRvDateTo());
@@ -38,6 +40,7 @@ public class ReservationController {
         }
     }
 
+    @Tag(name = "Reservation-User")
     @PostMapping("/make")
     public ResponseEntity<Boolean> makeReservation(@RequestBody ReservationRequestDTO requestDTO){
         Boolean response = reservationService.addReservation(requestDTO);
@@ -48,6 +51,7 @@ public class ReservationController {
         }
     }
 
+    @Tag(name = "Reservation-User")
     @GetMapping("/myReservations")
     public ResponseEntity<String> myReservations(@RequestBody ReservationRequestDTO requestDTO) {
         List<Reservation> list = reservationService.findMyReservations(requestDTO.getuId());
@@ -58,6 +62,7 @@ public class ReservationController {
         }
     }
 
+    @Tag(name = "Reservation-User")
     @DeleteMapping("/delete")
     public ResponseEntity<String> deleteReservation(@RequestBody Reservation requestDTO) {
         boolean deleted = reservationService.deleteReservation(requestDTO);

@@ -19,6 +19,7 @@ import com.soez.ezcheck.user.domain.UserSignUpDTO;
 import com.soez.ezcheck.user.service.MailService;
 import com.soez.ezcheck.user.service.UserService;
 
+import io.swagger.v3.oas.annotations.tags.Tag;
 import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
 
@@ -82,6 +83,7 @@ public class UsersController {
 		return new ResponseEntity<>(msg, HttpStatus.OK);
 	}
 
+	@Tag(name = "User")
 	@GetMapping("/signin")
 	public ResponseEntity<SignInResponse> signIn(@RequestBody UserSignInDTO userSignInDTO) {
 		SignInResponse msg = userService.signIn(userSignInDTO);

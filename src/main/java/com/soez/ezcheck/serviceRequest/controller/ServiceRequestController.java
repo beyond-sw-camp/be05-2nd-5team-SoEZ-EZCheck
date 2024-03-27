@@ -23,6 +23,7 @@ import com.soez.ezcheck.serviceRequest.domain.ServiceMakeRequestDTO;
 import com.soez.ezcheck.serviceRequest.domain.ServiceRequestDTO;
 import com.soez.ezcheck.serviceRequest.service.ServiceRequestService;
 
+import io.swagger.v3.oas.annotations.tags.Tag;
 import lombok.RequiredArgsConstructor;
 
 @PreAuthorize("hasAuthority('User')")
@@ -33,6 +34,7 @@ public class ServiceRequestController {
 
     private final   ServiceRequestService serviceRequestService;
 
+    @Tag(name = "ServiceRequest-User")
     @GetMapping("/myServiceRequests")
     public ResponseEntity<List<ServiceRequest>> myRequests(@RequestBody ServiceRequestDTO requestDTO){
         List<ServiceRequest> list = serviceRequestService.findMyRequests(requestDTO);
@@ -43,6 +45,7 @@ public class ServiceRequestController {
         }
     }
 
+    @Tag(name = "ServiceRequest-User")
     @PostMapping("/make")
     public ResponseEntity<Boolean> makeServiceRequest(@RequestBody ServiceRequestDTO requestDTO){
         Boolean response = serviceRequestService.addServiceRequest(requestDTO);
