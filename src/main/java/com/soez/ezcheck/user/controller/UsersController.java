@@ -4,6 +4,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 import org.springframework.http.HttpStatus;
+import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -15,6 +16,7 @@ import com.soez.ezcheck.user.SignInResponse;
 import com.soez.ezcheck.user.domain.AccountDeleteDTO;
 import com.soez.ezcheck.user.domain.EmailCheckDTO;
 import com.soez.ezcheck.user.domain.PasswordResetDTO;
+import com.soez.ezcheck.user.domain.UserInfoDTO;
 import com.soez.ezcheck.user.domain.UserSignInDTO;
 import com.soez.ezcheck.user.domain.UserSignUpDTO;
 import com.soez.ezcheck.user.service.MailService;
@@ -156,6 +158,19 @@ public class UsersController {
 		// 사용자 계정 삭제
 		userService.deleteAccount(userId);
 		return new ResponseEntity<>("회원탈퇴가 완료되었습니다.", HttpStatus.OK);
+	}
+
+	/**
+	 * 사용자 ID로 사용자 정보 조회
+	 * @author Jihwan
+	 * @param requestDTO 사용자 ID
+	 * @return 사용자 ID, 이름, 전화번호, 이메일을 포함한 사용자 정보
+	 */
+	@GetMapping(value = "/userinfo", produces = MediaType.APPLICATION_JSON_VALUE)
+	public ResponseEntity<UserInfoDTO> getUserInfo(@RequestBody UserInfoDTO requestDTO) {
+		UserInfoDTO userInfo = userService.getUserInfo(requestDTO.getUserId());
+		System.out.println(userInfo);
+		return new ResponseEntity<>(userInfo, HttpStatus.OK);
 	}
 
 }

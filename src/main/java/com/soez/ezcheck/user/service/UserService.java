@@ -12,6 +12,7 @@ import org.springframework.transaction.annotation.Transactional;
 import com.soez.ezcheck.entity.Users;
 import com.soez.ezcheck.security.TokenProvider;
 import com.soez.ezcheck.user.SignInResponse;
+import com.soez.ezcheck.user.domain.UserInfoDTO;
 import com.soez.ezcheck.user.domain.UserSignInDTO;
 import com.soez.ezcheck.user.domain.UserSignUpDTO;
 import com.soez.ezcheck.user.repository.UsersRepository;
@@ -122,6 +123,23 @@ public class UserService {
 	 */
 	public void deleteAccount(String userId) {
 		usersRepository.deleteById(userId);
+	}
+
+	/**
+	 * 사용자 정보 조회
+	 * @author Jihwan
+	 * @param userId 사용자 ID
+	 * @return 사용자 ID, 이름, 전화번호, 이메일을 포함한 사용자 정보
+	 */
+	public UserInfoDTO getUserInfo(String userId) {
+		Users user = usersRepository.findById(userId)
+			.orElseThrow(() -> new UsernameNotFoundException(userId + "와 일치하는 사용자가 없습니다."));
+		UserInfoDTO userInfoDTO = new UserInfoDTO();
+		userInfoDTO.setUserId(user.getUId());
+		userInfoDTO.setName(user.getUName());
+		userInfoDTO.setPhoneNumber(user.getUPhone());
+		userInfoDTO.setEmail(user.getUEmail());
+		return userInfoDTO;
 	}
 
 }
