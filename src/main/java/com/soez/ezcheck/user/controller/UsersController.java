@@ -83,7 +83,6 @@ public class UsersController {
 		return new ResponseEntity<>(msg, HttpStatus.OK);
 	}
 
-	@Tag(name = "User")
 	@GetMapping("/signin")
 	public ResponseEntity<SignInResponse> signIn(@RequestBody UserSignInDTO userSignInDTO) {
 		SignInResponse msg = userService.signIn(userSignInDTO);
