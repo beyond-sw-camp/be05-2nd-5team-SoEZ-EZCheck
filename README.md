@@ -20,9 +20,9 @@
 
 <div align="center">
 
-| <img src="https://github.com/beyond-sw-camp/be05-1st-90s-pawsitive/blob/main/png/readme/profile/hwan_profile.jpg" height="150" /> | <img src="https://github.com/beyond-sw-camp/be05-1st-90s-pawsitive/blob/main/png/readme/profile/heon_profile.jpg" height="150" /> | <img src="https://github.com/beyond-sw-camp/be05-1st-90s-pawsitive/blob/main/png/readme/profile/ji_profile.jpg" height="150" /> | <img src="https://github.com/beyond-sw-camp/be05-2nd-SoEZ-EZCheck/assets/112090609/f3888e48-6095-4b5e-8dc3-fc2d5a5c67a5" height="150" /> | <img src="https://github.com/beyond-sw-camp/be05-1st-90s-pawsitive/blob/main/png/readme/profile/won_profile.jpeg" height="150" /> |
+| <img src="https://github.com/beyond-sw-camp/be05-2nd-SoEZ-EZCheck/assets/112090609/f4876b56-0b13-481c-95c9-3a33c72efff9" height="150" /> | <img src="https://github.com/beyond-sw-camp/be05-1st-90s-pawsitive/blob/main/png/readme/profile/heon_profile.jpg" height="150" /> | <img src="https://github.com/beyond-sw-camp/be05-2nd-SoEZ-EZCheck/assets/112090609/5bce9023-19c1-4f84-a224-83694f5d4ec5" height="150" /> | <img src="https://github.com/beyond-sw-camp/be05-2nd-SoEZ-EZCheck/assets/112090609/0bca0c7b-d376-47bc-8d50-e8f56620d573" height="150" /> | <img src="https://github.com/beyond-sw-camp/be05-1st-90s-pawsitive/blob/main/png/readme/profile/won_profile.jpeg" height="150" /> |
 |-----------------------------------------------------------------------------------------------------------------------------------|-----------------------------------------------------------------------------------------------------------------------------------|---------------------------------------------------------------------------------------------------------------------------------|-----------------------------------------------------------------------------------------------------------------------------------|-----------------------------------------------------------------------------------------------------------------------------------|
-| <div align="center">[오은철](https://github.com/OrangeVinyl)</div>                                                                   | <div align="center"> [백지환](https://github.com/SpecialSHipDobby) </div>                                                            | <div align="center"> [임찬규](https://github.com/Chankyuuu)</div>                                                                    | <div align="center"> [박시현](https://github.com/SpecialSHipDobby)</div>                                                                     | <div align="center"> [이윤경](https://github.com/nbbb9 )</div>                                                                       |
+| <div align="center">[오은철](https://github.com/ecoh96)</div>                                                                   | <div align="center"> [백지환](https://github.com/SpecialSHipDobby) </div>                                                            | <div align="center"> [임찬규](https://github.com/Chankyuuu)</div>                                                                    | <div align="center"> [박시현](https://github.com/SpecialSHipDobby)</div>                                                                     | <div align="center"> [이윤경](https://github.com/nbbb9 )</div>                                                                       |
 
 </div>
 </br>
@@ -120,7 +120,6 @@
 
 ## 📝 테스트 케이스
 [테스트 케이스 바로가기 >](https://docs.google.com/spreadsheets/d/1wkCAW3SN-maeXB0BXnZn7svSK6Sjo7YLFL-78kbF_vw/edit#gid=427773154)
-<div align="left"><img src="" width="600" /></div>
 
 <details>
     <summary>사용자</summary>
