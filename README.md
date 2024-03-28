@@ -8,7 +8,7 @@
 
 ## 📣 프로젝트 소개
 
-- EZ-Check은 숙박에 관련된 모든 사항을 소비자 입장에서 편리하게 처리 가능하도록 만들어주는
+- EZ-Check은 숙박에 관련된 모든 사항을 소비자 입장에서 편리하게 처리 가능하도록 만들어주는  
   숙박 서비스 플랫폼으로, 셀프 체크인부터 부대시설 예약, 룸서비스 요청과 체크아웃까지  
   빠르고 간편한 서비스를 제공합니다.
 - 호텔 관리자 또한 객실 현황, 고객의 서비스 요청, 시설물 사용 현황 등을 한눈에 파악할 수 있고,  
@@ -23,9 +23,9 @@
 
 <div align="center">
 
-| <img src="https://github.com/beyond-sw-camp/be05-2nd-SoEZ-EZCheck/assets/112090609/f4876b56-0b13-481c-95c9-3a33c72efff9" height="150" /> | <img src="https://github.com/beyond-sw-camp/be05-1st-90s-pawsitive/blob/main/png/readme/profile/heon_profile.jpg" height="150" /> | <img src="https://github.com/beyond-sw-camp/be05-2nd-SoEZ-EZCheck/assets/112090609/5bce9023-19c1-4f84-a224-83694f5d4ec5" height="150" /> | <img src="https://github.com/beyond-sw-camp/be05-2nd-SoEZ-EZCheck/assets/112090609/0bca0c7b-d376-47bc-8d50-e8f56620d573" height="150" /> | <img src="https://github.com/beyond-sw-camp/be05-1st-90s-pawsitive/blob/main/png/readme/profile/won_profile.jpeg" height="150" /> |
+| <img src="https://github.com/beyond-sw-camp/be05-2nd-SoEZ-EZCheck/assets/112090609/f4876b56-0b13-481c-95c9-3a33c72efff9" height="150" /> | <img src="https://github.com/beyond-sw-camp/be05-1st-90s-pawsitive/blob/main/png/readme/profile/heon_profile.jpg" height="150" /> | <img src="https://github.com/beyond-sw-camp/be05-2nd-SoEZ-EZCheck/assets/112090609/5bce9023-19c1-4f84-a224-83694f5d4ec5" height="150" /> | <img src="https://github.com/beyond-sw-camp/be05-2nd-SoEZ-EZCheck/assets/112090609/0bca0c7b-d376-47bc-8d50-e8f56620d573" height="150" /> | <img src="https://github.com/beyond-sw-camp/be05-2nd-SoEZ-EZCheck/assets/112090609/5c194c91-15f4-4e3d-ad0c-5c5e502b401c" height="150" /> |
 |-----------------------------------------------------------------------------------------------------------------------------------|-----------------------------------------------------------------------------------------------------------------------------------|---------------------------------------------------------------------------------------------------------------------------------|-----------------------------------------------------------------------------------------------------------------------------------|-----------------------------------------------------------------------------------------------------------------------------------|
-| <div align="center">[오은철](https://github.com/ecoh96)</div>                                                                   | <div align="center"> [백지환](https://github.com/SpecialSHipDobby) </div>                                                            | <div align="center"> [임찬규](https://github.com/Chankyuuu)</div>                                                                    | <div align="center"> [박시현](https://github.com/SpecialSHipDobby)</div>                                                                     | <div align="center"> [이윤경](https://github.com/nbbb9 )</div>                                                                       |
+| <div align="center">[오은철](https://github.com/ecoh96)</div>                                                                   | <div align="center"> [백지환](https://github.com/JihwanB) </div>                                                            | <div align="center"> [임찬규](https://github.com/Chankyuuu)</div>                                                                    | <div align="center"> [박시현](https://github.com/SpecialSHipDobby)</div>                                                                     | <div align="center"> [이윤경](https://github.com/yun072)</div>                                                                       |
 
 </div>
 </br>
@@ -104,7 +104,7 @@
 
 ## 📝 요구사항 명세서
 [요구사항 명세서 바로가기 >](https://docs.google.com/spreadsheets/d/1wkCAW3SN-maeXB0BXnZn7svSK6Sjo7YLFL-78kbF_vw/edit#gid=1162915854)
-<div align="left"><img src="" width="600" /></div>
+<div align="left"><img src="https://github.com/beyond-sw-camp/be05-2nd-SoEZ-EZCheck/assets/112090609/aeedfbc8-bec7-48b3-b54b-3c1894a45291" width="600" /></div>
 </br>
 
 ## ⚙ ERD
@@ -127,23 +127,117 @@
 <details>
     <summary>사용자</summary>
         <details>
-          <summary>문의</summary>
-         52. 문의 수정
-         <img src="https://github.com/beyond-sw-camp/be05-2nd-SoEZ-EZCheck/assets/112090609/84dab529-6fdf-4fdd-9898-ca820fe36862"/>
-         53. 문의 삭제
-         <img src="https://github.com/beyond-sw-camp/be05-1st-90s-pawsitive/blob/main/png/readme/testcase/testcase_53.png"/>
-         54. 문의 전체 조회
-         <img src="https://github.com/beyond-sw-camp/be05-1st-90s-pawsitive/blob/main/png/readme/testcase/testcase_54.png"/>
-         55. 질문분류별 문의 개수 조회
-         <img src="https://github.com/beyond-sw-camp/be05-1st-90s-pawsitive/blob/main/png/readme/testcase/testcase_55.png"/>
+            <summary>회원가입</summary>
+               1. 
+               <img src=""/>
+               2. 
+               <img src=""/>
+               3. 
+               <img src=""/>
        </details>
+        <details>
+            <summary>로그인</summary>
+               1. 
+               <img src=""/>
+               2. 
+               <img src=""/>
+               3. 
+               <img src=""/>
+       </details>
+        <details>
+            <summary>객실 예약 관리</summary>
+               1. 
+               <img src=""/>
+               2. 
+               <img src=""/>
+               3. 
+               <img src=""/>
+       </details>
+        <details>
+            <summary>체크인</summary>
+               1. 
+               <img src=""/>
+               2. 
+               <img src=""/>
+               3. 
+               <img src=""/>
+       </details>
+        <details>
+            <summary>시설물</summary>
+               1. 
+               <img src=""/>
+               2. 
+               <img src=""/>
+               3. 
+               <img src=""/>
+       </details>
+        <details>
+            <summary>서비스</summary>
+               1. 
+               <img src=""/>
+               2. 
+               <img src=""/>
+               3. 
+               <img src=""/>
+       </details>
+        <details>
+            <summary>체크아웃</summary>
+               1. 
+               <img src=""/>
+               2. 
+               <img src=""/>
+               3. 
+               <img src=""/>
+       </details>
+      
 </details>
 
 <details>
-   <summary>관리자</summary>
-      <details>
-         <summary>관리자 회원가입</summary>
-            1.회원가입
-      </details>
+    <summary>관리자</summary>
+        <details>
+            <summary>객실</summary>
+               1. 
+               <img src=""/>
+               2. 
+               <img src=""/>
+               3. 
+               <img src=""/>
+       </details>
+        <details>
+            <summary>서비스</summary>
+               1. 
+               <img src=""/>
+               2. 
+               <img src=""/>
+               3. 
+               <img src=""/>
+       </details>
+        <details>
+            <summary>시설물</summary>
+               1. 
+               <img src=""/>
+               2. 
+               <img src=""/>
+               3. 
+               <img src=""/>
+       </details>
+        <details>
+            <summary>사용자 관리</summary>
+               1. 
+               <img src=""/>
+               2. 
+               <img src=""/>
+               3. 
+               <img src=""/>
+       </details>
+        <details>
+            <summary>체크아웃</summary>
+               1. 
+               <img src=""/>
+               2. 
+               <img src=""/>
+               3. 
+               <img src=""/>
+       </details>
 </details>
 </br>
