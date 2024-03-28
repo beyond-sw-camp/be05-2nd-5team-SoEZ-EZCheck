@@ -128,116 +128,121 @@
     <summary>사용자</summary>
         <details>
             <summary>회원가입</summary>
-               1. 
-               <img src=""/>
-               2. 
-               <img src=""/>
-               3. 
-               <img src=""/>
+               1. 사용자의 ID, 이름, 비밀번호, 전화번호, 이메일 입력 및 인증메일 전송
+               <img src="https://github.com/beyond-sw-camp/be05-2nd-SoEZ-EZCheck/assets/112090609/cf275050-8eb3-4a4a-acc0-224fb53eb2f8"/>
+               2. 사용자가 이메일로 전송받은 코드 인증
+               <img src="https://github.com/beyond-sw-camp/be05-2nd-SoEZ-EZCheck/assets/112090609/23cd8ef8-c4f2-4769-92d6-f56952d22182"/>
+               3. 사용자의 기입 정보 및 인증 코드를 바탕으로 회원가입 완료
+               <img src="https://github.com/beyond-sw-camp/be05-2nd-SoEZ-EZCheck/assets/112090609/a5c40300-be3f-4294-997c-d7cdb75dd04e"/>
+               4. 사용자 탈퇴
+               <img src="https://github.com/beyond-sw-camp/be05-2nd-SoEZ-EZCheck/assets/112090609/47c8ad85-a8fb-4ae8-874f-c5433d1094bc"/>
        </details>
         <details>
             <summary>로그인</summary>
-               1. 
-               <img src=""/>
-               2. 
-               <img src=""/>
-               3. 
-               <img src=""/>
+               1. 사용자 ID와 비밀번호로 로그인 실행 및 토큰 발급
+               <img src="https://github.com/beyond-sw-camp/be05-2nd-SoEZ-EZCheck/assets/112090609/d1a67c5d-eb1a-4d17-9390-edf8bf5b0ef6"/>
+               2. 이메일로 비밀번호 찾기
+               <img src="https://github.com/beyond-sw-camp/be05-2nd-SoEZ-EZCheck/assets/112090609/b631ed58-dd4a-4b33-ad60-e1fd83cd629b"/>
+               3. 사용자 정보 조회
+                <img src="https://github.com/beyond-sw-camp/be05-2nd-SoEZ-EZCheck/assets/140836341/21043f79-427a-44dd-9777-1b8b3af39dc0"/>
        </details>
         <details>
             <summary>객실 예약 관리</summary>
-               1. 
-               <img src=""/>
-               2. 
-               <img src=""/>
-               3. 
-               <img src=""/>
+               1. 일자별로 예약 가능 객실 조회 
+               <img src="(https://github.com/beyond-sw-camp/be05-2nd-SoEZ-EZCheck/assets/112090609/e0675f82-94a9-498e-aa7c-530d6b8eaeab"/>
+               2. 객실 예약
+               <img src="https://github.com/beyond-sw-camp/be05-2nd-SoEZ-EZCheck/assets/112090609/5fc0aeb6-a038-4872-9699-a79ecf070cd3"/>
+               3. 사용자의 예약 목록 조회
+               <img src="https://github.com/beyond-sw-camp/be05-2nd-SoEZ-EZCheck/assets/112090609/6fe8021e-2990-4f53-815e-06aa96e076ef"/>
+               4. 객실 예약 취소
+               <img src="https://github.com/beyond-sw-camp/be05-2nd-SoEZ-EZCheck/assets/112090609/31df8945-398d-42c6-ad99-91d5de22a727"/>
        </details>
         <details>
             <summary>체크인</summary>
-               1. 
-               <img src=""/>
-               2. 
-               <img src=""/>
-               3. 
-               <img src=""/>
+               1. 예약 ID로 예약된 정보 조회 
+               <img src="https://github.com/beyond-sw-camp/be05-2nd-SoEZ-EZCheck/assets/112090609/51d609bf-89cf-4405-90c8-5096920372e2"/>
+               2. 객실 ID로 체크인 가능한 객실 조회 
+               <img src="https://github.com/beyond-sw-camp/be05-2nd-SoEZ-EZCheck/assets/112090609/d24344a3-527c-436c-94a3-7d5bb6974ffb"/>
+               3. 사용자가 입력한 객실 비밀번호로 자동 체크인
+               <img src="https://github.com/beyond-sw-camp/be05-2nd-SoEZ-EZCheck/assets/112090609/c2f1c4c7-99e3-4f4c-9a5a-8175a0644f39"/>
        </details>
         <details>
             <summary>시설물</summary>
-               1. 
-               <img src=""/>
-               2. 
-               <img src=""/>
-               3. 
-               <img src=""/>
+               1. 입력한 예약 인원수, 날짜, 시간으로 예약 가능한 시설물들 조회  
+               <img src="https://github.com/beyond-sw-camp/be05-2nd-SoEZ-EZCheck/assets/112090609/42d2bfdb-daed-4d01-be1a-cc10d235cb59"/>
+               2. 예약 가능한 시설물들 중에서 특정 시설물에 대한 예약 생성  
+               <img src="https://github.com/beyond-sw-camp/be05-2nd-SoEZ-EZCheck/assets/112090609/753dc5eb-a5aa-4650-98d0-95f1261158e2"/>
+               3. 사용자 ID로 예약내역을 조회
+               <img src="https://github.com/beyond-sw-camp/be05-2nd-SoEZ-EZCheck/assets/112090609/7d367fae-d772-48f1-915d-4222ac9cff60"/>
        </details>
         <details>
             <summary>서비스</summary>
-               1. 
-               <img src=""/>
-               2. 
-               <img src=""/>
-               3. 
-               <img src=""/>
+               1. 체크아웃 시간 변경 및 룸서비스 요청 
+               <img src="https://github.com/beyond-sw-camp/be05-2nd-SoEZ-EZCheck/assets/112090609/3005cfa1-18ea-434b-a8bd-08ec3ec629f7"/>
+               2. 신청한 서비스의 현재 진행 상황 조회 
+               <img src="https://github.com/beyond-sw-camp/be05-2nd-SoEZ-EZCheck/assets/112090609/9d1f1118-2a4b-4442-a9c9-6e3257d64527"/>
        </details>
         <details>
             <summary>체크아웃</summary>
-               1. 
-               <img src=""/>
-               2. 
-               <img src=""/>
-               3. 
-               <img src=""/>
+            1. 관리자에게 객실 ID로 체크아웃 요청
+                <img src="https://github.com/beyond-sw-camp/be05-2nd-SoEZ-EZCheck/assets/140836341/d083b8e7-83bc-4e0f-ba98-994377e7b27d"/>
+                <img src="https://github.com/beyond-sw-camp/be05-2nd-SoEZ-EZCheck/assets/140836341/8b4e483c-fcf9-43c2-b016-2e3fecc18d41"/>
+                <img src="https://github.com/beyond-sw-camp/be05-2nd-SoEZ-EZCheck/assets/140836341/2849f7d3-1df8-48f6-be1f-20fdfe04f891"/>
+            2.관리자의 승인을 받으면 체크인 ID로 체크아웃
+                <img src="https://github.com/beyond-sw-camp/be05-2nd-SoEZ-EZCheck/assets/140836341/daa681c2-a130-41fd-93d0-fb91cbb9d76b"/>
        </details>
       
 </details>
 
+</br>
+
 <details>
     <summary>관리자</summary>
         <details>
+            <summary>회원가입</summary>
+               1. 관리자의 ID, 이름, 비밀번호, 전화번호, 이메일로 회원가입
+               <img src="https://github.com/beyond-sw-camp/be05-2nd-SoEZ-EZCheck/assets/112090609/f0514abf-2972-47a8-a9d5-3d14ecb20625"/>
+       </details>
+        <details>
+            <summary>로그인</summary>
+               1. 관리자 ID와 비밀번호로 로그인 실행 및 토큰 발급
+               <img src="https://github.com/beyond-sw-camp/be05-2nd-SoEZ-EZCheck/assets/112090609/856e890c-fea5-425b-943d-a0e2c5f9dc7b"/>
+       </details>
+        <details>
             <summary>객실</summary>
-               1. 
-               <img src=""/>
-               2. 
-               <img src=""/>
-               3. 
+               1. 청소 완료된 객실의 예약 가능 여부 상태 변경
                <img src=""/>
        </details>
         <details>
             <summary>서비스</summary>
-               1. 
-               <img src=""/>
-               2. 
-               <img src=""/>
-               3. 
-               <img src=""/>
+               1. 전체 고객의 서비스 요청 처리 여부 조회
+               <img src="https://github.com/beyond-sw-camp/be05-2nd-SoEZ-EZCheck/assets/112090609/152cc666-1520-4076-a707-dd18641c2bce"/>
+               2. 특정 고객이 요청한 서비스 조회
+               <img src="https://github.com/beyond-sw-camp/be05-2nd-SoEZ-EZCheck/assets/112090609/314506e7-66fb-44fc-9edc-f02031f89ee0"/>
+               3. 고객 서비스 요청 처리 여부 상태 변경
+               <img src="https://github.com/beyond-sw-camp/be05-2nd-SoEZ-EZCheck/assets/112090609/cbe6bcb3-c8ae-459b-8d38-f899cdd73f61"/>
        </details>
         <details>
             <summary>시설물</summary>
-               1. 
-               <img src=""/>
-               2. 
-               <img src=""/>
-               3. 
-               <img src=""/>
-       </details>
-        <details>
-            <summary>사용자 관리</summary>
-               1. 
-               <img src=""/>
-               2. 
-               <img src=""/>
-               3. 
-               <img src=""/>
+               1. 시설물 예약 가능 시간 조회
+               <img src="https://github.com/beyond-sw-camp/be05-2nd-SoEZ-EZCheck/assets/112090609/e9a50007-0f8e-4097-9ab4-805b737f50f4"/>
+               2. 유지 보수 등 시설물 사용 가능의 경우 상태 변경
+               <img src="https://github.com/beyond-sw-camp/be05-2nd-SoEZ-EZCheck/assets/112090609/f09733a6-6ee4-416f-a2ba-5ca8628d5c2d"/>
+               3. 유지 보수 등 시설물 사용 불가의 경우 상태 변경
+               <img src="https://github.com/beyond-sw-camp/be05-2nd-SoEZ-EZCheck/assets/112090609/f86c32bb-55c1-465b-a29d-0657a860ceba"/>
        </details>
         <details>
             <summary>체크아웃</summary>
-               1. 
-               <img src=""/>
-               2. 
-               <img src=""/>
-               3. 
-               <img src=""/>
-       </details>
+                    1. 전체 고객 체크아웃 요청 내역 조회
+                    <img src="https://github.com/beyond-sw-camp/be05-2nd-SoEZ-EZCheck/assets/140836341/ed98da03-5209-4f06-8c73-c110e82d043f"/>
+                    2.특정 일자에 발생한 체크아웃 요청 내역 조회
+                    <img src="https://github.com/beyond-sw-camp/be05-2nd-SoEZ-EZCheck/assets/140836341/ee537a63-bf1c-487e-9f16-55763e5dd1ea"/>
+                    3.체크아웃 요청 승인
+                    <img src="https://github.com/beyond-sw-camp/be05-2nd-SoEZ-EZCheck/assets/140836341/42b8d207-fdac-4721-a4a4-95dec4705430"/>
+                    <img src="https://github.com/beyond-sw-camp/be05-2nd-SoEZ-EZCheck/assets/140836341/714c9baf-99d3-4c78-8a12-fecbec020ecb"/>
+                    <img src="https://github.com/beyond-sw-camp/be05-2nd-SoEZ-EZCheck/assets/140836341/9522524b-a689-403b-9a34-8374e87b0d70"/>
+                    4.체크아웃 요청 거절
+                    <img src="https://github.com/beyond-sw-camp/be05-2nd-SoEZ-EZCheck/assets/140836341/6a374fef-9e18-4429-b49d-618f7b36de38"/>
+        </details>
 </details>
 </br>
