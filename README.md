@@ -1,7 +1,9 @@
 <div align="center"><img src="https://github.com/beyond-sw-camp/be05-2nd-SoEZ-EZCheck/assets/112090609/4d720be3-fae5-45fa-a0b4-7cdf1ae32db6" width="600" /></div>
 
 <div align="center">
-    <h1> Hotel Management Service </h1>
+    <h1> EZ-Check 
+        </br> Hotel Management Service
+    </h1>
 </div>
 </br>
 </br>
@@ -15,9 +17,9 @@
   셀프 체크인/체크아웃 절차 도입으로 숙소 운영을 더욱 편하게 만들어 줍니다.  
 </br>
 
-## 📣 팀 소개
+## 😽 팀 소개
 **팀명  : 'SoEZ'**
-###### 숙박과 관련된 모든 절차를 쉽고 간편하게 만들어 준다는 뜻입니다.
+###### 숙박과 관련된 모든 절차를 쉽고 간편하게 만들어 준다는 의미를 가지고 있습니다.
 
 **팀원 소개**
 
@@ -30,7 +32,7 @@
 </div>
 </br>
 
-## 📣 사용 기술
+## ⚙ 사용 기술
 <div align="center">
   <img src="https://img.shields.io/badge/java-007396?style=for-the-badge&logo=java&logoColor=white">
   <img src="https://img.shields.io/badge/spring-6DB33F?style=for-the-badge&logo=spring&logoColor=white">
@@ -55,16 +57,16 @@
 </br>
 </br>
 
-## 📣 프로젝트 필요성
+## 📈 프로젝트 필요성
 
 - 현재 국내 호텔 산업은 심각한 인력난을 겪고 있습니다. </br>
   한국호텔업협회의 조사에 따르면 현재 호텔 업체들의 16.6%는 인력이 부족한 상황에 직면했으며,   
   식음료 서비스, 조리 및 객실 부문에서 인력 부족이 심각하게 나타나고 있습니다.
 - 이러한 인력 부족 문제를 해결하기 위해 다양한 서비스를 제공하여 운영 효율성을 높이고  
-  고객 만족도를 높이기 위해 개발 진행하게 되었습니다.  
+  고객 만족도를 높이기 위해 개발을 진행하게 되었습니다.  
 </br>
 
-## 📣 프로젝트 주요 기능
+## 📟 프로젝트 주요 기능
 
 1. 회원가입
     - 사용자의 경우 이메일 인증을 통한 회원가입이 가능합니다.
@@ -99,12 +101,12 @@
 
 ## 📅 WBS
 [WBS 바로가기 >](https://docs.google.com/spreadsheets/d/1wkCAW3SN-maeXB0BXnZn7svSK6Sjo7YLFL-78kbF_vw/edit#gid=1531810588)
-<div align="left"><img src="https://github.com/beyond-sw-camp/be05-2nd-SoEZ-EZCheck/assets/112090609/b83e9e84-fed3-4731-a711-a6a451554ec5" width="600" /></div>
+<div align="left"><img src="https://github.com/beyond-sw-camp/be05-2nd-SoEZ-EZCheck/assets/112090609/fb9cf783-68b9-4bef-b2cd-7e25917bdedd" width="600" /></div>
 </br>
 
 ## 📝 요구사항 명세서
 [요구사항 명세서 바로가기 >](https://docs.google.com/spreadsheets/d/1wkCAW3SN-maeXB0BXnZn7svSK6Sjo7YLFL-78kbF_vw/edit#gid=1162915854)
-<div align="left"><img src="https://github.com/beyond-sw-camp/be05-2nd-SoEZ-EZCheck/assets/112090609/aeedfbc8-bec7-48b3-b54b-3c1894a45291" width="600" /></div>
+<div align="left"><img src="https://github.com/beyond-sw-camp/be05-2nd-SoEZ-EZCheck/assets/112090609/d4aa6fdb-d341-4c08-a6e6-12b3e582033b" width="600" /></div>
 </br>
 
 ## ⚙ ERD
