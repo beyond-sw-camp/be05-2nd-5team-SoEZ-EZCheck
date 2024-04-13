@@ -10,6 +10,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import com.soez.ezcheck.entity.Users;
+import com.soez.ezcheck.facility.repository.FacilityReservationRepository;
 import com.soez.ezcheck.security.TokenProvider;
 import com.soez.ezcheck.user.SignInResponse;
 import com.soez.ezcheck.user.domain.UserInfoDTO;
@@ -26,6 +27,7 @@ public class UserService {
 	private final UsersRepository usersRepository;
 	private final PasswordEncoder passwordEncoder;
 	private final TokenProvider tokenProvider;
+	private final FacilityReservationRepository facilityReservationRepository;
 
 	/**
 	 * 회원가입
@@ -121,7 +123,13 @@ public class UserService {
 	 * @author Jihwan
 	 * @param userId 삭제할 사용자 ID
 	 */
+	@Transactional
 	public void deleteAccount(String userId) {
+		Optional<Users> users = usersRepository.findById(userId);
+		if (users.isEmpty()) {
+			throw new UsernameNotFoundException(userId + "와 일치하는 사용자가 없습니다.");
+		}
+		facilityReservationRepository.deleteByUserId(users.get().getUId());
 		usersRepository.deleteById(userId);
 	}
 
