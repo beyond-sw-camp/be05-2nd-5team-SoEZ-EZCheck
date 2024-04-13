@@ -61,7 +61,7 @@ public class UsersController {
 	 * @param request 사용자 ID
 	 * @return 사용자 ID 중복여부
 	 */
-	@GetMapping(value = "/check-id", consumes = MediaType.APPLICATION_JSON_VALUE, produces = MediaType.APPLICATION_JSON_VALUE)
+	@PostMapping(value = "/check-id", consumes = MediaType.APPLICATION_JSON_VALUE, produces = MediaType.APPLICATION_JSON_VALUE)
 	public ResponseEntity<Boolean> checkUserId(@RequestBody Map<String, String> request) {
 		String userId = request.get("userId");
 		boolean exists = userService.existsByUId(userId);
