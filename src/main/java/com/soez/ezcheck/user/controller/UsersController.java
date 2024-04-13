@@ -69,6 +69,19 @@ public class UsersController {
 	}
 
 	/**
+	 * 사용자로부터 입력받은 이메일로 사용자 이메일 중복여부 확인
+	 * @author Jihwan
+	 * @param request 사용자 이메일
+	 * @return 사용자 이메일 중복여부
+	 */
+	@PostMapping(value = "/check-email", consumes = MediaType.APPLICATION_JSON_VALUE, produces = MediaType.APPLICATION_JSON_VALUE)
+	public ResponseEntity<Boolean> checkEmail(@RequestBody Map<String, String> request) {
+		String email = request.get("email");
+		boolean exists = userService.existsByUEmail(email);
+		return new ResponseEntity<>(exists, HttpStatus.OK);
+	}
+
+	/**
 	 * 사용자로부터 인증코드를 입력받아, 전송된 인증코드와 일치한지 확인하여 회원가입 진행
 	 * @author Jihwan
 	 * @param emailCheckDTO 사용자가 입력한 이메일 주소와 인증코드

@@ -79,6 +79,15 @@ public class UserService {
 		return usersRepository.existsByUId(userId);
 	}
 
+	/**
+	 * 사용자 이메일 중복확인
+	 * @param email 사용자 이메일
+	 * @return 사용자 이메일 중복여부
+	 */
+	public boolean existsByUEmail(String email) {
+		return usersRepository.existsByUEmail(email);
+	}
+
 	@Transactional
 	public SignInResponse signIn(UserSignInDTO userSignInDTO) {
 		Optional<Users> users = usersRepository.findById(userSignInDTO.getUserId());
