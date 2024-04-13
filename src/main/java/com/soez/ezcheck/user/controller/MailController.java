@@ -1,5 +1,7 @@
 package com.soez.ezcheck.user.controller;
 
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -23,11 +25,12 @@ public class MailController {
 	 * 사용자가 입력한 이메일 주소로 인증코드를 전송
 	 * @author Jihwan
 	 * @param emailRequestDTO 사용자가 입력한 이메일 주소
-	 * @return 8자리 인증코드
+	 * @return ResponseEntity<Void>
 	 */
 	@PostMapping("/send")
-	public String mailSend(@RequestBody @Valid EmailRequestDTO emailRequestDTO) {
-		return mailService.setEmail(emailRequestDTO.getEmail());
+	public ResponseEntity<Void> mailSend(@RequestBody @Valid EmailRequestDTO emailRequestDTO) {
+		mailService.setEmail(emailRequestDTO.getEmail());
+		return new ResponseEntity<>(HttpStatus.OK);
 	}
 
 	/**
@@ -37,13 +40,8 @@ public class MailController {
 	 * @return 인증 성공여부에 따른 결과 메시지
 	 */
 	@PostMapping("/check")
-	public String authCheck(@RequestBody @Valid EmailCheckDTO emailCheckDTO) {
-		boolean checked = mailService.checkAuthNumber(emailCheckDTO.getEmail(), emailCheckDTO.getAuthCode());
-		if (checked) {
-			return "인증에 성공하였습니다.";
-		} else {
-			throw new NullPointerException("인증코드가 일치하지 않습니다.");
-		}
+	public boolean authCheck(@RequestBody @Valid EmailCheckDTO emailCheckDTO) {
+		return mailService.checkAuthNumber(emailCheckDTO.getEmail(), emailCheckDTO.getAuthCode());
 	}
 
 }

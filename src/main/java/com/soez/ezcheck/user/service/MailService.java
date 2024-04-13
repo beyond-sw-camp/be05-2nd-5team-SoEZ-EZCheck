@@ -54,30 +54,28 @@ public class MailService {
 	/**
 	 * 인증코드 생성 및 이메일 전송
 	 * @author Jihwan
-	 * @param email 인증메일을 보낼 이메일 주소
-	 * @return 8자리 인증코드
+	 * @param toEmail 인증메일을 보낼 이메일 주소
 	 */
-	public String setEmail(String email) {
+	@Transactional
+	public void setEmail(String toEmail) {
 		createAuthCode();
 		String fromEmail = "leyqorwlghks@gmail.com";
-		String toEmail = email;
 		String title = "본인확인 인증 이메일 입니다.";
 		String body = "";
 		body += "<div style='margin:100px;'>";
 		body += "<h1> 안녕하세요 이지스테이 입니다. </h1>";
 		body += "<br>";
-		body += "<p>아래 코드를 회원가입 창으로 돌아가 입력해주세요<p>";
+		body += "<p>아래 코드를 정확하게 입력해주세요<p>";
 		body += "<br>";
 		body += "<p>감사합니다!<p>";
 		body += "<br>";
 		body += "<div align='center' style='border:1px solid black; font-family:verdana';>";
-		body += "<h3 style='color:blue;'>회원가입 인증 코드입니다.</h3>";
+		body += "<h3 style='color:blue;'>요청하신 인증 코드입니다.</h3>";
 		body += "<div style='font-size:130%'>";
 		body += "CODE : <strong>";
 		body += authCode + "</strong><div><br/> ";
 		body += "</div>";
 		sendMail(fromEmail, toEmail, title, body);
-		return authCode;
 	}
 
 	/**
