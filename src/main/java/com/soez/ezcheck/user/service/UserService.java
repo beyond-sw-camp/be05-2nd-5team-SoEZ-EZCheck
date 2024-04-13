@@ -69,6 +69,16 @@ public class UserService {
 		return msg;
 	}
 
+	/**
+	 * 사용자 ID 중복확인
+	 * @author Jihwan
+	 * @param userId 사용자 ID
+	 * @return 사용자 ID 중복여부
+	 */
+	public boolean existsByUId(String userId) {
+		return usersRepository.existsByUId(userId);
+	}
+
 	@Transactional
 	public SignInResponse signIn(UserSignInDTO userSignInDTO) {
 		Optional<Users> users = usersRepository.findById(userSignInDTO.getUserId());

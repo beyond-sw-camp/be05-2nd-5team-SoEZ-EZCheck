@@ -2,6 +2,7 @@ package com.soez.ezcheck.user.controller;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Map;
 
 import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
@@ -52,6 +53,19 @@ public class UsersController {
 		msg.add("이메일로 전송된 인증 코드를 확인하고 입력해주세요.");
 		return new ResponseEntity<>(msg, HttpStatus.OK);
 		// 인증 코드를 사용자에게 전송하고, 입력받을 수 있는 페이지로 리다이렉트
+	}
+
+	/**
+	 * 사용자로부터 입력받은 ID로 사용자 ID 중복여부 확인
+	 * @author Jihwan
+	 * @param request 사용자 ID
+	 * @return 사용자 ID 중복여부
+	 */
+	@GetMapping(value = "/check-id", consumes = MediaType.APPLICATION_JSON_VALUE, produces = MediaType.APPLICATION_JSON_VALUE)
+	public ResponseEntity<Boolean> checkUserId(@RequestBody Map<String, String> request) {
+		String userId = request.get("userId");
+		boolean exists = userService.existsByUId(userId);
+		return new ResponseEntity<>(exists, HttpStatus.OK);
 	}
 
 	/**
