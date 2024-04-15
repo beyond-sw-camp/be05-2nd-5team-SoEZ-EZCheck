@@ -26,7 +26,7 @@ public class ReservationController {
 
 	private final ReservationService reservationService;
 
-	@GetMapping("/listAvailableGrades")
+	@PostMapping("/listAvailableGrades")
 	public ResponseEntity<List<RoomGrade>> listAvailableGrades(@RequestBody ReservationRequestDTO requestDTO) {
 		List<RoomGrade> list = reservationService.avalableRoomGrades(requestDTO.getRvDateFrom(),
 			requestDTO.getRvDateTo());
@@ -49,13 +49,13 @@ public class ReservationController {
 	}
 
 	@PreAuthorize("hasAuthority('User')")
-	@GetMapping("/myReservations")
-	public ResponseEntity<String> myReservations(@RequestBody ReservationRequestDTO requestDTO) {
+	@PostMapping("/myReservations")
+	public ResponseEntity<List<Reservation>> myReservations(@RequestBody ReservationRequestDTO requestDTO) {
 		List<Reservation> list = reservationService.findMyReservations(requestDTO.getuId());
 		if (list.isEmpty()) {
 			return ResponseEntity.noContent().build();
 		} else {
-			return ResponseEntity.status(HttpStatus.OK).body(list.toString());
+			return ResponseEntity.status(HttpStatus.OK).body(list);
 		}
 	}
 

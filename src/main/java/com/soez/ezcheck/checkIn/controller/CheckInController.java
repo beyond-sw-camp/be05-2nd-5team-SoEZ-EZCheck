@@ -47,8 +47,9 @@ public class CheckInController {
 	}
 
 	@GetMapping("/reservations/available")
-	public ResponseEntity<List<Room>> findAvailableRooms(@RequestParam Integer rId) {
-		List<Room> availableRooms = checkInService.findAvailableRooms(rId);
+	public ResponseEntity<List<Room>> findAvailableRooms() {
+		List<Room> availableRooms = checkInService.findAvailableRooms();
+		System.out.println(availableRooms);
 		return ResponseEntity.ok(availableRooms);
 	}
 
