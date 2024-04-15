@@ -84,16 +84,13 @@ public class CheckInService {
 
 	public String checkInReservation(List<Reservation> availableReservations, CheckInRequestDTO request) {
 		// 체크인할 예약 정보 찾기
-		Optional<Reservation> reservationOptional = availableReservations.stream()
-			.filter(reservation -> reservation.getRvId().equals(request.getRvId()))
-			.findFirst();
-
+		Optional<Reservation> reservationOptional = reservationRepository.findById(request.getRvId());
 		if (reservationOptional.isEmpty()) {
 			throw new IllegalArgumentException("체크인할 예약 정보를 찾을 수 없습니다.");
 		} else {
 
 			Reservation reservationToCheckIn = reservationOptional.get();
-			Optional<Room> roomOptional = roomRepository.findById(reservationToCheckIn.getRvId());
+			Optional<Room> roomOptional = roomRepository.findById(request.getRoomId());
 			if (roomOptional.isPresent()) {
 				Room room = roomOptional.get();
 				if (room.getRoomStatusEnum() == RoomStatusEnum.AVAILABLE) {
@@ -112,6 +109,8 @@ public class CheckInService {
 					LocalDateTime currentTime = LocalDateTime.now();
 					checkIn.setCinDate(Date.valueOf(currentTime.toLocalDate()));
 					checkIn.setCinTime(Time.valueOf(currentTime.toLocalTime()));
+					checkIn.setReservation(reservationToCheckIn);
+					checkIn.setRoom(room);
 					checkInRepository.save(checkIn);
 
 					return "체크인이 완료되었습니다.";
