@@ -1,7 +1,5 @@
 package com.soez.ezcheck.user.service;
 
-import java.util.ArrayList;
-import java.util.List;
 import java.util.Optional;
 
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
@@ -36,26 +34,7 @@ public class UserService {
 	 * @return 회원가입 성공여부에 따른 결과 메시지
 	 */
 	@Transactional
-	public List<String> signUp(UserSignUpDTO userSignUpDTO) {
-
-		String uId = userSignUpDTO.getUserId();
-		String email = userSignUpDTO.getEmail();
-		String phone = userSignUpDTO.getPhone();
-
-		List<String> msg = new ArrayList<>();
-		if (usersRepository.existsByUId(uId)) {
-			msg.add("이미 가입되어 있는 ID 입니다.");
-		}
-		if (usersRepository.existsByUEmail(email)) {
-			msg.add("이미 가입되어 있는 이메일 입니다.");
-		}
-		if (usersRepository.existsByUPhone(phone)) {
-			msg.add("이미 가입되어 있는 전화번호 입니다.");
-		}
-
-		if (!msg.isEmpty()) {
-			return msg;
-		}
+	public String signUp(UserSignUpDTO userSignUpDTO) {
 
 		Users users = new Users();
 		users.setUId(userSignUpDTO.getUserId());
@@ -64,9 +43,8 @@ public class UserService {
 		users.setUPhone(userSignUpDTO.getPhone());
 		users.setUEmail(userSignUpDTO.getEmail());
 		this.usersRepository.save(users);
-		msg.add(uId + "님 가입을 환영합니다.");
 
-		return msg;
+		return userSignUpDTO.getUserId() + "님 가입을 환영합니다.";
 	}
 
 	/**

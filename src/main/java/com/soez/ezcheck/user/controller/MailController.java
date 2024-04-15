@@ -40,8 +40,9 @@ public class MailController {
 	 * @return 인증 성공여부에 따른 결과 메시지
 	 */
 	@PostMapping("/check")
-	public boolean authCheck(@RequestBody @Valid EmailCheckDTO emailCheckDTO) {
-		return mailService.checkAuthNumber(emailCheckDTO.getEmail(), emailCheckDTO.getAuthCode());
+	public ResponseEntity<Boolean> authCheck(@RequestBody @Valid EmailCheckDTO emailCheckDTO) {
+		boolean result = mailService.checkAuthNumber(emailCheckDTO.getEmail(), emailCheckDTO.getAuthCode());
+		return new ResponseEntity<>(result, HttpStatus.OK);
 	}
 
 }

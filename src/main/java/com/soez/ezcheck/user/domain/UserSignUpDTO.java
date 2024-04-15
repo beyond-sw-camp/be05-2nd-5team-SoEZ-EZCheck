@@ -23,7 +23,6 @@ public class UserSignUpDTO {
 	private String password1;
 
 	@Size(min = 3, max = 255)
-	@NotEmpty(message = "비밀번호 확인은 필수항목 입니다.")
 	private String password2;
 
 	@Size(max = 40)

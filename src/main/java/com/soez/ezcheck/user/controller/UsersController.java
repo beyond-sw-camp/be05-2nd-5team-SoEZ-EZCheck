@@ -7,6 +7,7 @@ import java.util.Map;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
@@ -29,6 +30,7 @@ import lombok.RequiredArgsConstructor;
 @RestController
 @RequestMapping("/user")
 @RequiredArgsConstructor
+@CrossOrigin(origins = "http://localhost:8081")
 public class UsersController {
 
 	private final UserService userService;
@@ -59,9 +61,9 @@ public class UsersController {
 	 * 사용자로부터 입력받은 ID로 사용자 ID 중복여부 확인
 	 * @author Jihwan
 	 * @param request 사용자 ID
-	 * @return 사용자 ID 중복여부
 	 */
-	@PostMapping(value = "/check-id", consumes = MediaType.APPLICATION_JSON_VALUE, produces = MediaType.APPLICATION_JSON_VALUE)
+	// @CrossOrigin(origins = "*")
+	@PostMapping("/check-id")
 	public ResponseEntity<Boolean> checkUserId(@RequestBody Map<String, String> request) {
 		String userId = request.get("userId");
 		boolean exists = userService.existsByUId(userId);
@@ -74,7 +76,8 @@ public class UsersController {
 	 * @param request 사용자 이메일
 	 * @return 사용자 이메일 중복여부
 	 */
-	@PostMapping(value = "/check-email", consumes = MediaType.APPLICATION_JSON_VALUE, produces = MediaType.APPLICATION_JSON_VALUE)
+	// @CrossOrigin(origins = "*")
+	@PostMapping("/check-email")
 	public ResponseEntity<Boolean> checkEmail(@RequestBody Map<String, String> request) {
 		String email = request.get("email");
 		boolean exists = userService.existsByUEmail(email);
@@ -107,8 +110,8 @@ public class UsersController {
 	 * @return 회원가입 성공여부에 따른 결과 메시지
 	 */
 	@PostMapping("/register")
-	public ResponseEntity<List<String>> register(@Valid @RequestBody UserSignUpDTO userSignUpDTO) {
-		List<String> msg = userService.signUp(userSignUpDTO);
+	public ResponseEntity<String> register(@RequestBody @Valid UserSignUpDTO userSignUpDTO) {
+		String msg = userService.signUp(userSignUpDTO);
 		return new ResponseEntity<>(msg, HttpStatus.OK);
 	}
 
