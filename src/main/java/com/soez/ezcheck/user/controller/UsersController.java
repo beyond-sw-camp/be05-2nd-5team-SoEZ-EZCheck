@@ -118,6 +118,9 @@ public class UsersController {
 	@PostMapping("/signin")
 	public ResponseEntity<SignInResponse> signIn(@RequestBody UserSignInDTO userSignInDTO) {
 		SignInResponse msg = userService.signIn(userSignInDTO);
+		if (msg.equals(null)){
+			return new ResponseEntity<>(msg, HttpStatus.BAD_REQUEST);
+		}
 		return new ResponseEntity<>(msg, HttpStatus.OK);
 	}
 
