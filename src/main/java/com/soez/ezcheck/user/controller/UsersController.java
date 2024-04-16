@@ -30,7 +30,7 @@ import lombok.RequiredArgsConstructor;
 @RestController
 @RequestMapping("/user")
 @RequiredArgsConstructor
-@CrossOrigin(origins = "http://localhost:8081")
+// @CrossOrigin(origins = "http://localhost:8081")
 public class UsersController {
 
 	private final UserService userService;
@@ -118,6 +118,9 @@ public class UsersController {
 	@PostMapping("/signin")
 	public ResponseEntity<SignInResponse> signIn(@RequestBody UserSignInDTO userSignInDTO) {
 		SignInResponse msg = userService.signIn(userSignInDTO);
+		if (msg.equals(null)){
+			return new ResponseEntity<>(msg, HttpStatus.BAD_REQUEST);
+		}
 		return new ResponseEntity<>(msg, HttpStatus.OK);
 	}
 

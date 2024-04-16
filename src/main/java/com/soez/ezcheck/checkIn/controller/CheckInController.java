@@ -29,8 +29,6 @@ import lombok.RequiredArgsConstructor;
 public class CheckInController {
 
 	private final CheckInService checkInService;
-	private final ReservationRepository reservationRepository;
-	private final CheckInRepository checkInRepository;
 	private final ReservationService reservationService;
 
 	@GetMapping("/checkInUsers/{date}")
@@ -67,4 +65,9 @@ public class CheckInController {
 		}
 	}
 
+	@PostMapping("/myRvCheckIn")
+	public ResponseEntity<CheckIn> myRvCheckIn(@RequestBody CheckInRequestDTO request) {
+		CheckIn myRvCheckIn = checkInService.findByRvId(request.getRvId());
+		return ResponseEntity.ok(myRvCheckIn);
+	}
 }
