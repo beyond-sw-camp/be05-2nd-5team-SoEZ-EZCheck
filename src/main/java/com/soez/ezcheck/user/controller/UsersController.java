@@ -30,7 +30,7 @@ import lombok.RequiredArgsConstructor;
 @RestController
 @RequestMapping("/user")
 @RequiredArgsConstructor
-// @CrossOrigin(origins = "http://localhost:8081")
+@CrossOrigin(origins = "http://localhost:8081")
 public class UsersController {
 
 	private final UserService userService;
@@ -62,6 +62,7 @@ public class UsersController {
 	 * @author Jihwan
 	 * @param request 사용자 ID
 	 */
+	// @CrossOrigin(origins = "*")
 	@PostMapping("/check-id")
 	public ResponseEntity<Boolean> checkUserId(@RequestBody Map<String, String> request) {
 		String userId = request.get("userId");
@@ -75,6 +76,7 @@ public class UsersController {
 	 * @param request 사용자 이메일
 	 * @return 사용자 이메일 중복여부
 	 */
+	// @CrossOrigin(origins = "*")
 	@PostMapping("/check-email")
 	public ResponseEntity<Boolean> checkEmail(@RequestBody Map<String, String> request) {
 		String email = request.get("email");
