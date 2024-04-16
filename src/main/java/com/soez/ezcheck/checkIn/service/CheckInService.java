@@ -123,4 +123,7 @@ public class CheckInService {
 		return null;
 	}
 
+	public CheckIn findByRvId(Integer rvId) {
+		return checkInRepository.findByReservation(reservationRepository.findById(rvId).get());
+	}
 }
