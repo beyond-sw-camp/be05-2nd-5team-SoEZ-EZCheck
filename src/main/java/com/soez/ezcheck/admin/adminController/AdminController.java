@@ -35,7 +35,7 @@ public class AdminController {
 		return new ResponseEntity<>(msg, HttpStatus.OK);
 	}
 
-    @GetMapping("/signin")
+    @PostMapping("/signin")
 	public ResponseEntity<SignInResponse> signIn(@RequestBody UserSignInDTO userSignInDTO) {
 		SignInResponse msg = adminService.signIn(userSignInDTO);
 		return new ResponseEntity<>(msg, HttpStatus.OK);

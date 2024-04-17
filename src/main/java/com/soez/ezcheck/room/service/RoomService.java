@@ -16,6 +16,7 @@ public interface RoomService {
 
     ResponseEntity<List<Object[]>> findReservableRoomsByDateAndType(Date checkin, Date checkout, RoomGradeEnum type);
 
+    List<Room> findAll();
 
 
     public Optional<Room> find(Integer roomId);

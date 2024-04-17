@@ -62,7 +62,7 @@ public class CheckOutController {
 	 * @param coutId 승인할 체크아웃 요청 ID
 	 * @return 체크아웃 승인 메시지
 	 */
-	@PutMapping("/approve/{coutId}")
+	@GetMapping("/approve/{coutId}")
 	public ResponseEntity<String> approveCheckOutRequest(@PathVariable Integer coutId) {
 		checkOutServiceImpl.approveCheckOut(coutId);
 		return new ResponseEntity<>("체크아웃 요청을 승인하였습니다.", HttpStatus.OK);
@@ -74,7 +74,7 @@ public class CheckOutController {
 	 * @param coutId 거절할 체크아웃 요청 ID
 	 * @return 체크아웃 거절 메시지
 	 */
-	@PutMapping("/reject/{coutId}")
+	@GetMapping("/reject/{coutId}")
 	public ResponseEntity<String> rejectCheckOutRequest(@PathVariable Integer coutId) {
 		checkOutServiceImpl.rejectCheckOut(coutId);
 		return new ResponseEntity<>("체크아웃 요청을 거절하였습니다.", HttpStatus.OK);
