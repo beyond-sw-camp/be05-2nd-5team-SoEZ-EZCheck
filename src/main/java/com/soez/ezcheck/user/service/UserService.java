@@ -1,14 +1,19 @@
 package com.soez.ezcheck.user.service;
 
+import java.util.List;
 import java.util.Optional;
 
+import org.springframework.security.authentication.BadCredentialsException;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import com.soez.ezcheck.checkIn.repository.CheckInRepository;
+import com.soez.ezcheck.entity.Reservation;
 import com.soez.ezcheck.entity.Users;
 import com.soez.ezcheck.facility.repository.FacilityReservationRepository;
+import com.soez.ezcheck.reservation.repository.ReservationRepository;
 import com.soez.ezcheck.security.TokenProvider;
 import com.soez.ezcheck.user.SignInResponse;
 import com.soez.ezcheck.user.domain.UserInfoDTO;
@@ -26,6 +31,8 @@ public class UserService {
 	private final PasswordEncoder passwordEncoder;
 	private final TokenProvider tokenProvider;
 	private final FacilityReservationRepository facilityReservationRepository;
+	private final CheckInRepository checkInRepository;
+	private final ReservationRepository reservationRepository;
 
 	/**
 	 * 회원가입
@@ -128,6 +135,30 @@ public class UserService {
 		}
 		facilityReservationRepository.deleteByUserId(users.get().getUId());
 		usersRepository.deleteById(userId);
+	}
+
+	/**
+	 * 사용자 계정 삭제
+	 * @param userId 사용자 ID
+	 * @param password 사용자 비밀번호
+	 */
+	@Transactional
+	public void deleteAccount(String userId, String password) {
+		Users user = usersRepository.findById(userId)
+			.orElseThrow(() -> new UsernameNotFoundException(userId + "와 일치하는 사용자가 없습니다."));
+
+		if (!passwordEncoder.matches(password, user.getUPwd())) {
+			throw new BadCredentialsException("비밀번호가 일치하지 않습니다.");
+		}
+
+		List<Reservation> reservations = reservationRepository.findByUsers(user);
+		for (Reservation reservation : reservations) {
+			checkInRepository.deleteByReservationId(reservation.getRvId());
+		}
+
+		facilityReservationRepository.deleteByUserId(user.getUId());
+		reservationRepository.deleteByUserId(user.getUId());
+		usersRepository.delete(user);
 	}
 
 	/**

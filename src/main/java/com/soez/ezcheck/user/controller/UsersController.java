@@ -7,7 +7,7 @@ import java.util.Map;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.CrossOrigin;
+import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
@@ -118,7 +118,7 @@ public class UsersController {
 	@PostMapping("/signin")
 	public ResponseEntity<SignInResponse> signIn(@RequestBody UserSignInDTO userSignInDTO) {
 		SignInResponse msg = userService.signIn(userSignInDTO);
-		if (msg.equals(null)){
+		if (msg.equals(null)) {
 			return new ResponseEntity<>(msg, HttpStatus.BAD_REQUEST);
 		}
 		return new ResponseEntity<>(msg, HttpStatus.OK);
@@ -193,12 +193,27 @@ public class UsersController {
 	}
 
 	/**
+	 * 사용자 계정 삭제
+	 * @param accountDeleteDTO 사용자 ID, 비밀번호
+	 * @return 계정 삭제 성공여부에 따른 결과 메시지
+	 */
+	@DeleteMapping("/delete-account")
+	public ResponseEntity<String> removeAccount(@RequestBody AccountDeleteDTO accountDeleteDTO) {
+		try {
+			userService.deleteAccount(accountDeleteDTO.getUserId(), accountDeleteDTO.getPassword1());
+			return new ResponseEntity<>("회원탈퇴가 완료되었습니다.", HttpStatus.OK);
+		} catch (Exception e) {
+			return new ResponseEntity<>(e.getMessage(), HttpStatus.BAD_REQUEST);
+		}
+	}
+
+	/**
 	 * 사용자 ID로 사용자 정보 조회
 	 * @author Jihwan
 	 * @param requestDTO 사용자 ID
 	 * @return 사용자 ID, 이름, 전화번호, 이메일을 포함한 사용자 정보
 	 */
-	@GetMapping(value = "/userinfo", produces = MediaType.APPLICATION_JSON_VALUE)
+	@PostMapping(value = "/userinfo", produces = MediaType.APPLICATION_JSON_VALUE)
 	public ResponseEntity<UserInfoDTO> getUserInfo(@RequestBody UserInfoDTO requestDTO) {
 		UserInfoDTO userInfo = userService.getUserInfo(requestDTO.getUserId());
 		System.out.println(userInfo);
