@@ -193,6 +193,21 @@ public class UsersController {
 	}
 
 	/**
+	 * 사용자 계정 삭제
+	 * @param accountDeleteDTO 사용자 ID, 비밀번호
+	 * @return 계정 삭제 성공여부에 따른 결과 메시지
+	 */
+	@DeleteMapping("/delete-account")
+	public ResponseEntity<String> removeAccount(@RequestBody AccountDeleteDTO accountDeleteDTO) {
+		try {
+			userService.deleteAccount(accountDeleteDTO.getUserId(), accountDeleteDTO.getPassword1());
+			return new ResponseEntity<>("회원탈퇴가 완료되었습니다.", HttpStatus.OK);
+		} catch (Exception e) {
+			return new ResponseEntity<>(e.getMessage(), HttpStatus.BAD_REQUEST);
+		}
+	}
+
+	/**
 	 * 사용자 ID로 사용자 정보 조회
 	 * @author Jihwan
 	 * @param requestDTO 사용자 ID

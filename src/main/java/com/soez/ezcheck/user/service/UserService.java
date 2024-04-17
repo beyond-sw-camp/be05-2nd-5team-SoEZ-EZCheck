@@ -31,6 +31,8 @@ public class UserService {
 	private final PasswordEncoder passwordEncoder;
 	private final TokenProvider tokenProvider;
 	private final FacilityReservationRepository facilityReservationRepository;
+	private final CheckInRepository checkInRepository;
+	private final ReservationRepository reservationRepository;
 
 	/**
 	 * 회원가입
