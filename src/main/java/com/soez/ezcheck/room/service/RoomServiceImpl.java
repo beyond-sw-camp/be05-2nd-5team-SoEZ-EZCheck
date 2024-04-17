@@ -46,5 +46,11 @@ public class RoomServiceImpl implements RoomService{
         }
         return "객실 상태 변경에 실패했습니다. 객실 번호를 다시 확인해 주세요.";
     }
+
+
+    @Override
+    public List<Room> findAll() {
+        return roomRepository.findAll();
+    }
     
 }

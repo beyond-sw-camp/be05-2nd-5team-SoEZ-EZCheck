@@ -16,6 +16,9 @@ import java.util.Optional;
 
 import org.apache.catalina.connector.Response;
 import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.RequestParam;
+
 
 
 @RestController
@@ -59,5 +62,12 @@ public class RoomController {
 
         return new ResponseEntity<>(msg, HttpStatus.OK);
     }
+
+    @GetMapping("/allRooms")
+    public List<Room> getAllRooms() {
+        List<Room> rooms = roomService.findAll();
+        return rooms ;
+    }
+    
     
 }
