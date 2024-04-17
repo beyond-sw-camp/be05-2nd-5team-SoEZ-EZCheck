@@ -2,6 +2,7 @@ package com.soez.ezcheck.checkout.controller;
 
 import java.util.Date;
 import java.util.List;
+import java.util.Map;
 
 import org.springframework.format.annotation.DateTimeFormat;
 import org.springframework.http.HttpStatus;
@@ -18,6 +19,8 @@ import org.springframework.web.bind.annotation.RestController;
 import com.soez.ezcheck.checkIn.repository.CheckInRepository;
 import com.soez.ezcheck.checkout.domain.CheckOutDTO;
 import com.soez.ezcheck.checkout.service.CheckOutServiceImpl;
+import com.soez.ezcheck.entity.CheckOutStatusEnum;
+import com.soez.ezcheck.entity.Room;
 
 import lombok.RequiredArgsConstructor;
 
@@ -59,7 +62,7 @@ public class CheckOutController {
 	 * @param coutId 승인할 체크아웃 요청 ID
 	 * @return 체크아웃 승인 메시지
 	 */
-	@PutMapping("/approve/{coutId}")
+	@GetMapping("/approve/{coutId}")
 	public ResponseEntity<String> approveCheckOutRequest(@PathVariable Integer coutId) {
 		checkOutServiceImpl.approveCheckOut(coutId);
 		return new ResponseEntity<>("체크아웃 요청을 승인하였습니다.", HttpStatus.OK);
@@ -71,7 +74,7 @@ public class CheckOutController {
 	 * @param coutId 거절할 체크아웃 요청 ID
 	 * @return 체크아웃 거절 메시지
 	 */
-	@PutMapping("/reject/{coutId}")
+	@GetMapping("/reject/{coutId}")
 	public ResponseEntity<String> rejectCheckOutRequest(@PathVariable Integer coutId) {
 		checkOutServiceImpl.rejectCheckOut(coutId);
 		return new ResponseEntity<>("체크아웃 요청을 거절하였습니다.", HttpStatus.OK);
@@ -83,8 +86,9 @@ public class CheckOutController {
 	 @return 체크아웃 요청(rId)
 	 */
 	@PostMapping("/checkoutrequest")
-	public String requestCheckOut(@RequestBody Integer rId) { //roomid로 받고
-		checkOutServiceImpl.requestCheckOut(rId);
+	public String requestCheckOut(@RequestBody Map<String, Integer> requestBody) { //roomid로 받고
+		System.out.println("체크아웃 요청이 들어왔습니다. : " + requestBody);
+		checkOutServiceImpl.requestCheckOut(requestBody.get("rId"));
 		return "체크아웃이 요청되었습니다.";
 	}
 
@@ -93,12 +97,18 @@ public class CheckOutController {
 	 */
 	@PostMapping("/perform")
 	public ResponseEntity<String> performCheckOut(@RequestParam(required = false) Integer cinId) {
-		if (cinId == null || !checkInRepository.existsById(cinId)) {
-			return ResponseEntity.ok("체크아웃되지 않았습니다.");
-		} else {
-			checkOutServiceImpl.checkOut(cinId);
-			return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body("체크아웃되었습니다..");
-		}
-	}
+    if (cinId == null || !checkInRepository.existsById(cinId)) {
+        return ResponseEntity.ok("체크아웃되지 않았습니다.");
+    } else {
+        // 여기서 체크아웃 확정을 위한 로직 추가
+        CheckOutDTO checkOutDTO = new CheckOutDTO();
+        checkOutDTO.setCinId(cinId);
+		checkOutDTO.setCheckOutStatusEnum(CheckOutStatusEnum.ACCEPTED);
 
+        // CheckOut 서비스를 호출하여 체크아웃 확정 진행
+        checkOutServiceImpl.checkOut(checkOutDTO.getCinId());
+
+        return ResponseEntity.ok("체크아웃되었습니다.");
+    }
+}
 }

@@ -99,12 +99,13 @@ public class CheckOutServiceImpl {
 	}
 
 	public void requestCheckOut(Integer rId) {
-		CheckIn checkIn = checkInRepository.findById(rId)
+		Optional<Room> room = roomRepository.findById(rId);
+		CheckIn checkIn = checkInRepository.findByRoom(room.get());
 				//checkInRepository.findById(rId)
-				.orElseThrow(() -> new IllegalArgumentException("체크인 정보를 찾을 수 없습니다."));
+				//.orElseThrow(() -> new IllegalArgumentException("체크인 정보를 찾을 수 없습니다."));
 
 		// 이미 체크아웃 요청이 되었는지 확인
-		Optional<CheckOut> existingCheckOut = checkOutRepository.findById(rId);
+		Optional<CheckOut> existingCheckOut = checkOutRepository.findByCheckIn(checkIn);
 		if (existingCheckOut.isPresent()) {
 			throw new IllegalStateException("이미 체크아웃 요청이 처리되었거나 완료되었습니다.");
 		}
