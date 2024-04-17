@@ -22,23 +22,23 @@ import lombok.RequiredArgsConstructor;
 @RequestMapping("/admin")
 @RequiredArgsConstructor
 public class AdminController {
-    private final AdminService adminService;
+	private final AdminService adminService;
 
-    @PostMapping("/signup")
+	@PostMapping("/signup")
 	public ResponseEntity<List<String>> signUp(@Valid @RequestBody UserSignUpDTO userSignUpDTO) {
 		List<String> msg = new ArrayList<>();
 		if (!userSignUpDTO.getPassword1().equals(userSignUpDTO.getPassword2())) {
 			msg.add("2개의 패스워드가 일치하지 않습니다.");
 			return new ResponseEntity<>(msg, HttpStatus.BAD_REQUEST);
 		}
-        msg = adminService.signUp(userSignUpDTO);
+		msg = adminService.signUp(userSignUpDTO);
 		return new ResponseEntity<>(msg, HttpStatus.OK);
 	}
 
-    @PostMapping("/signin")
+	@PostMapping("/signin")
 	public ResponseEntity<SignInResponse> signIn(@RequestBody UserSignInDTO userSignInDTO) {
 		SignInResponse msg = adminService.signIn(userSignInDTO);
 		return new ResponseEntity<>(msg, HttpStatus.OK);
 	}
-    
+
 }
