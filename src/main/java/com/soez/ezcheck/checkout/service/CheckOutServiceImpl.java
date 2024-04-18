@@ -126,9 +126,8 @@ public class CheckOutServiceImpl {
 		CheckIn checkIn = checkInRepository.findById(cinId).orElseThrow(() -> new IllegalArgumentException("체크인 아이디를 찾을 수 없습니다."));
 
 		Room room = checkIn.getRoom();
-		CheckOut checkOutP = checkOutRepository.findByCheckIn(checkIn).orElseThrow(() -> new IllegalArgumentException("체크아웃 정보를 찾을 수 없습니다."));
 		// 관리자가 객실 상태를  AVAILABLE로 변경했는지 확인
-		if (checkOutP.getCheckOutStatusEnum() != CheckOutStatusEnum.ACCEPTED) {
+		if (room.getRoomStatusEnum() != RoomStatusEnum.AVAILABLE) {
 			throw new IllegalStateException("관리자가 아직 체크아웃을 승인하지 않았습니다.");
 		} else {
 
@@ -143,7 +142,7 @@ public class CheckOutServiceImpl {
 			checkOutRepository.save(checkOut);
 
 			// 체크인 정보 삭제
-			// checkInRepository.delete(checkIn);
+			checkInRepository.delete(checkIn);
 		}
 	}
 

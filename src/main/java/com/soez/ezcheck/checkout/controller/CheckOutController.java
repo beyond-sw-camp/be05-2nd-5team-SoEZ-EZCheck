@@ -96,24 +96,19 @@ public class CheckOutController {
 	 체크아웃 확정
 	 */
 	@PostMapping("/perform")
-	public ResponseEntity<String> performCheckOut(@RequestBody Map<String, Integer> requestBody) {
-		
-		System.out.println(">>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>");
-		System.out.println(">>>>>>>>>>>>>>>>>>>>>> debug  cinId , " + requestBody.get("cinId"));
-		System.out.println(">>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>");
-		
-		if (requestBody.get("cinId") == null || !checkInRepository.existsById(requestBody.get("cinId"))) {
-			return ResponseEntity.ok("체크아웃되지 않았습니다.");
-		} else {
-			// 여기서 체크아웃 확정을 위한 로직 추가
-			CheckOutDTO checkOutDTO = new CheckOutDTO();
-			checkOutDTO.setCinId(requestBody.get("cinId"));
-			checkOutDTO.setCheckOutStatusEnum(CheckOutStatusEnum.ACCEPTED);
+	public ResponseEntity<String> performCheckOut(@RequestParam(required = false) Integer cinId) {
+    if (cinId == null || !checkInRepository.existsById(cinId)) {
+        return ResponseEntity.ok("체크아웃되지 않았습니다.");
+    } else {
+        // 여기서 체크아웃 확정을 위한 로직 추가
+        CheckOutDTO checkOutDTO = new CheckOutDTO();
+        checkOutDTO.setCinId(cinId);
+		checkOutDTO.setCheckOutStatusEnum(CheckOutStatusEnum.ACCEPTED);
 
-			// CheckOut 서비스를 호출하여 체크아웃 확정 진행
-			checkOutServiceImpl.checkOut(checkOutDTO.getCinId());
+        // CheckOut 서비스를 호출하여 체크아웃 확정 진행
+        checkOutServiceImpl.checkOut(checkOutDTO.getCinId());
 
-			return ResponseEntity.ok("체크아웃되었습니다.");
-		}
-	}
+        return ResponseEntity.ok("체크아웃되었습니다.");
+    }
+}
 }
