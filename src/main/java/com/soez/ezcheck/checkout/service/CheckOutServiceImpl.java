@@ -7,13 +7,17 @@ import java.util.List;
 import java.util.Optional;
 import java.util.stream.Collectors;
 
-import com.soez.ezcheck.checkIn.repository.CheckInRepository;
-import com.soez.ezcheck.entity.*;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import com.soez.ezcheck.checkIn.repository.CheckInRepository;
 import com.soez.ezcheck.checkout.domain.CheckOutDTO;
 import com.soez.ezcheck.checkout.repository.CheckOutRepository;
+import com.soez.ezcheck.entity.CheckIn;
+import com.soez.ezcheck.entity.CheckOut;
+import com.soez.ezcheck.entity.CheckOutStatusEnum;
+import com.soez.ezcheck.entity.Room;
+import com.soez.ezcheck.entity.RoomStatusEnum;
 import com.soez.ezcheck.room.repository.RoomRepository;
 
 import lombok.RequiredArgsConstructor;
@@ -101,8 +105,8 @@ public class CheckOutServiceImpl {
 	public void requestCheckOut(Integer rId) {
 		Optional<Room> room = roomRepository.findById(rId);
 		CheckIn checkIn = checkInRepository.findByRoom(room.get());
-				//checkInRepository.findById(rId)
-				//.orElseThrow(() -> new IllegalArgumentException("체크인 정보를 찾을 수 없습니다."));
+		//checkInRepository.findById(rId)
+		//.orElseThrow(() -> new IllegalArgumentException("체크인 정보를 찾을 수 없습니다."));
 
 		// 이미 체크아웃 요청이 되었는지 확인
 		Optional<CheckOut> existingCheckOut = checkOutRepository.findByCheckIn(checkIn);
@@ -119,15 +123,17 @@ public class CheckOutServiceImpl {
 		checkOutRepository.save(checkOut);
 	}
 
-
 	// 관리자가 객실 상태를 변경하면 체크아웃 진행-> 객실 비밀번호 초기화, 체크인 정보 삭제
 	public void checkOut(Integer cinId) {
 		System.out.println("debug >>> CO service");
-		CheckIn checkIn = checkInRepository.findById(cinId).orElseThrow(() -> new IllegalArgumentException("체크인 아이디를 찾을 수 없습니다."));
+		CheckIn checkIn = checkInRepository.findById(cinId)
+			.orElseThrow(() -> new IllegalArgumentException("체크인 아이디를 찾을 수 없습니다."));
 
 		Room room = checkIn.getRoom();
+		CheckOut checkOutP = checkOutRepository.findByCheckIn(checkIn)
+			.orElseThrow(() -> new IllegalArgumentException("체크아웃 정보를 찾을 수 없습니다."));
 		// 관리자가 객실 상태를  AVAILABLE로 변경했는지 확인
-		if (room.getRoomStatusEnum() != RoomStatusEnum.AVAILABLE) {
+		if (checkOutP.getCheckOutStatusEnum() != CheckOutStatusEnum.ACCEPTED) {
 			throw new IllegalStateException("관리자가 아직 체크아웃을 승인하지 않았습니다.");
 		} else {
 
@@ -142,11 +148,8 @@ public class CheckOutServiceImpl {
 			checkOutRepository.save(checkOut);
 
 			// 체크인 정보 삭제
-			checkInRepository.delete(checkIn);
+			// checkInRepository.delete(checkIn);
 		}
 	}
-
-
-
 
 }
